@@ -2,6 +2,14 @@
 
 All notable changes to UnitedBeats are documented in this file. Version numbers follow Semantic Versioning and are tied to `VERSION.md`.
 
+## [1.8.0] - 2026-11-15
+### Changed
+- Moved **The $10,000 Haircut by Lum** (`lum-commission.php`) off the homepage onto its dedicated page (`/lum-10000-haircut/`, linked in the `Projects` navigation menu) and removed the top `Lum · $10K Chair` pill from the starburst hero.
+- Reverted the WordPress & HUD theme from the `v1.6.0` flashing God-light/laser-bar overlays back to the clean `v1.5.0` `lumbros.me` HUD layout while preserving the dark rainbow + emerald color scheme, all `81` collective souls, and `84` unique readable Google Fonts.
+### Fixed
+- Fixed square cut-off edges on the pre-explosion starburst (`drawStar` and `ejecta` radial gradients in `legacy-scripts.html` now fill full circular `outerR` arcs with smooth zero-alpha fade stops instead of clipping inside `fillRect`).
+- Removed the default WordPress `hello-world` note and hid the `Latest Updates` heading when no posts are published.
+
 ## [1.7.0] - 2026-11-15
 ### Added
 - **The $10,000 Haircut & Life-Changing Chair Commission by Lum (`lum-commission.php`)**:

@@ -19,32 +19,14 @@ body{overflow-y:auto !important;overflow-x:hidden;}
 <?php echo file_get_contents(__DIR__ . '/legacy-markup.html'); ?>
 <div class="ub-spacer" aria-hidden="true"></div>
 <main class="ub-below" id="posts">
-  <div class="ub-godlight-crown" aria-hidden="true"></div>
-  <div class="ub-divine-ray" aria-hidden="true"></div>
   <div class="ub-below-inner">
-    <div class="ub-divine-outline" aria-hidden="true"></div>
-    <div class="ub-divine-inline" aria-hidden="true"></div>
-    <div class="ub-glint ub-glint-tl" aria-hidden="true"></div>
-    <div class="ub-glint ub-glint-tr" aria-hidden="true"></div>
-    <div class="ub-glint ub-glint-bl" aria-hidden="true"></div>
-    <div class="ub-glint ub-glint-br" aria-hidden="true"></div>
-    <div class="ub-oil-backplane" aria-hidden="true"></div>
-    <div class="ub-oil-magnifier" aria-hidden="true"></div>
-    <div class="ub-spectrum-oscillator" aria-hidden="true">
-      <span class="ub-osc-bar ub-osc-left"></span>
-      <span class="ub-osc-center"></span>
-      <span class="ub-osc-bar ub-osc-right"></span>
-    </div>
-    <div class="ub-console-content">
-      <?php include __DIR__ . '/lum-commission.php'; ?>
-      <h2>Projects</h2>
-      <?php wp_nav_menu(['theme_location'=>'primary','menu_class'=>'ub-nav','container'=>false,'fallback_cb'=>false]); ?>
-      <?php $q=new WP_Query(['post_type'=>'post','posts_per_page'=>10]); if($q->have_posts()): ?>
-      <h2>Latest Updates</h2>
-      <?php while($q->have_posts()): $q->the_post(); ?>
-        <article class="ub-post"><h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3><div><?php echo get_the_date(); ?></div><?php the_excerpt(); ?></article>
-      <?php endwhile; wp_reset_postdata(); endif; ?>
-    </div>
+    <h2>Projects</h2>
+    <?php wp_nav_menu(['theme_location'=>'primary','menu_class'=>'ub-nav','container'=>false,'fallback_cb'=>false]); ?>
+    <?php $q=new WP_Query(['post_type'=>'post','posts_per_page'=>10]); if($q->have_posts()): ?>
+    <h2>Latest Updates</h2>
+    <?php while($q->have_posts()): $q->the_post(); ?>
+      <article class="ub-post"><h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3><div><?php echo get_the_date(); ?></div><?php the_excerpt(); ?></article>
+    <?php endwhile; wp_reset_postdata(); endif; ?>
   </div>
 </main>
 <?php echo file_get_contents(__DIR__ . '/legacy-scripts.html'); ?>

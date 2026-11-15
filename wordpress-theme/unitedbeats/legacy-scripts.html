@@ -553,23 +553,21 @@
             ctx.fillStyle = `hsla(${e.hue}, 90%, ${e.brightness}%, ${e.life * 0.7})`;
             ctx.fill();
             // Glow
+            const glowR = e.size * e.life * 4;
             const glow = ctx.createRadialGradient(
               e.x,
               e.y,
               0,
               e.x,
               e.y,
-              e.size * e.life * 4,
+              glowR,
             );
             glow.addColorStop(0, `hsla(${e.hue}, 100%, 60%, ${e.life * 0.3})`);
-            glow.addColorStop(1, "transparent");
+            glow.addColorStop(1, `hsla(${e.hue}, 100%, 60%, 0)`);
+            ctx.beginPath();
+            ctx.arc(e.x, e.y, glowR, 0, Math.PI * 2);
             ctx.fillStyle = glow;
-            ctx.fillRect(
-              e.x - e.size * 4,
-              e.y - e.size * 4,
-              e.size * 8,
-              e.size * 8,
-            );
+            ctx.fill();
           });
 
           // Dust/debris
@@ -700,7 +698,7 @@
         }
 
         drawStar(x, y, r, glow) {
-          // Multi-layered corona
+          // Multi-layered circular corona (drawn to full outerR with smooth zero-alpha fade so no square edges ever clip)
           const layers = [
             {
               r: 15,
@@ -708,7 +706,8 @@
                 [0, "rgba(255,255,255,0.95)"],
                 [0.2, "rgba(255,240,200,0.7)"],
                 [0.5, "rgba(255,150,50,0.2)"],
-                [1, "transparent"],
+                [0.82, "rgba(255,120,40,0.04)"],
+                [1, "rgba(255,120,40,0)"],
               ],
             },
             {
@@ -716,16 +715,20 @@
               stops: [
                 [0, "rgba(255,255,255,1)"],
                 [0.3, "rgba(200,220,255,0.8)"],
-                [0.7, "rgba(100,150,255,0.3)"],
-                [1, "transparent"],
+                [0.7, "rgba(100,150,255,0.28)"],
+                [0.9, "rgba(100,150,255,0.05)"],
+                [1, "rgba(100,150,255,0)"],
               ],
             },
           ];
           layers.forEach((l) => {
-            const g = ctx.createRadialGradient(x, y, 0, x, y, r * l.r + glow);
+            const outerR = r * l.r + glow;
+            const g = ctx.createRadialGradient(x, y, 0, x, y, outerR);
             l.stops.forEach(([stop, color]) => g.addColorStop(stop, color));
+            ctx.beginPath();
+            ctx.arc(x, y, outerR, 0, Math.PI * 2);
             ctx.fillStyle = g;
-            ctx.fillRect(x - r * l.r, y - r * l.r, r * l.r * 2, r * l.r * 2);
+            ctx.fill();
           });
 
           // Light spikes
@@ -792,49 +795,18 @@
         // Background (transparent: building photo shows through)
         ctx.clearRect(0, 0, W, H);
 
-        // Viscous 12-Spectrum Dark Rainbow Oil-Sheen Nebula
-        for (let i = 0; i < 6; i++) {
-          const drift = time * 0.11 + i * 1.047;
-          const nx = cx + Math.sin(drift) * (W * 0.28) + Math.cos(drift * 0.6) * 90;
-          const ny = cy + Math.cos(drift * 0.85) * (H * 0.24);
-          const nebR = Math.max(420, Math.min(W, H) * 0.58);
-          const neb = ctx.createRadialGradient(nx, ny, 0, nx, ny, nebR);
-          const hue = (time * 18 + i * 60) % 360;
-          neb.addColorStop(0, `hsla(${hue}, 92%, 44%, 0.048)`);
-          neb.addColorStop(0.42, `hsla(${(hue + 48) % 360}, 88%, 34%, 0.028)`);
-          neb.addColorStop(0.75, `hsla(${(hue + 96) % 360}, 82%, 24%, 0.012)`);
-          neb.addColorStop(1, "transparent");
+        // Gentle Dark Rainbow Nebula (building photo stays clear underneath)
+        for (let i = 0; i < 4; i++) {
+          const nx = cx + Math.sin(time * 0.1 + i * 1.5) * 300;
+          const ny = cy + Math.cos(time * 0.1 + i * 1.5) * 200;
+          const neb = ctx.createRadialGradient(nx, ny, 0, nx, ny, 520);
+          const hue = (time * 15 + i * 90) % 360;
+          neb.addColorStop(0, `hsla(${hue}, 85%, 36%, 0.03)`);
+          neb.addColorStop(0.5, `hsla(${(hue + 40) % 360}, 78%, 24%, 0.014)`);
+          neb.addColorStop(1, "rgba(0,0,0,0)");
           ctx.fillStyle = neb;
           ctx.fillRect(0, 0, W, H);
         }
-
-        // 3.5s Pulsing God Light Corona & Vertical Hyper-Beam
-        const godPhase = (time % 3.5) / 3.5;
-        const godDist = Math.abs(godPhase - 0.86);
-        const godSurge = Math.exp(-Math.pow(godDist / 0.055, 2));
-        const godAmbient = 0.22 + 0.14 * Math.sin(godPhase * 6.28318);
-        const godPower = Math.min(1, godAmbient + godSurge * 0.85);
-
-        ctx.save();
-        const beamHalfW = 28 + godSurge * 85;
-        const vBeam = ctx.createLinearGradient(cx - beamHalfW, 0, cx + beamHalfW, 0);
-        vBeam.addColorStop(0, "transparent");
-        vBeam.addColorStop(0.32, `rgba(52, 211, 153, ${0.025 + godSurge * 0.09})`);
-        vBeam.addColorStop(0.5, `rgba(255, 255, 255, ${0.035 + godSurge * 0.22})`);
-        vBeam.addColorStop(0.68, `rgba(168, 85, 247, ${0.022 + godSurge * 0.08})`);
-        vBeam.addColorStop(1, "transparent");
-        ctx.fillStyle = vBeam;
-        ctx.fillRect(cx - beamHalfW, 0, beamHalfW * 2, H);
-
-        const godRadius = Math.max(260, Math.min(W, H) * (0.36 + godSurge * 0.22));
-        const godGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, godRadius);
-        godGlow.addColorStop(0, `rgba(255, 255, 255, ${0.04 * godPower + godSurge * 0.18})`);
-        godGlow.addColorStop(0.28, `rgba(110, 231, 183, ${0.032 * godPower + godSurge * 0.11})`);
-        godGlow.addColorStop(0.62, `rgba(56, 189, 248, ${0.018 * godPower + godSurge * 0.05})`);
-        godGlow.addColorStop(1, "transparent");
-        ctx.fillStyle = godGlow;
-        ctx.fillRect(0, 0, W, H);
-        ctx.restore();
 
         // Parallax stars
         const mx = (mouseX - cx) * 0.01;

@@ -2,7 +2,7 @@
 
 The official portal and celestial visual engine for the UnitedBeats collective — an interactive single-page experience combining canvas astrophysics simulations, ambient drone audio synthesis, collective soul archiving, and live system operations.
 
-Current Version: **1.7.0** (tracked in `VERSION.md`)
+Current Version: **1.8.0** (tracked in `VERSION.md`)
 
 ---
 
