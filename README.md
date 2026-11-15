@@ -2,7 +2,7 @@
 
 The official portal and celestial visual engine for the UnitedBeats collective — an interactive single-page experience combining canvas astrophysics simulations, ambient drone audio synthesis, collective soul archiving, and live system operations.
 
-Current Version: **1.2.0** (tracked in `VERSION.md`)
+Current Version: **1.7.0** (tracked in `VERSION.md`)
 
 ---
 
@@ -20,7 +20,7 @@ The site is served globally across three mirrored domains:
 ### 1. Operations Hub
 Accessible via the **⚡ Operations Hub** button or the `Tab` keyboard shortcut:
 - **Physics**: Real-time simulation parameters (mouse gravity well toggling, soul filaments connecting celestial names, nova explosions, star count).
-- **Souls (76)**: Searchable interactive registry of all 63 Detroit collective soul names. Clicking any name highlights their focal constellation in the celestial canvas.
+- **Souls (81)**: Searchable interactive registry of all 81 Detroit collective soul names (each rendered in a randomly assigned unique readable font). Clicking any name highlights their focal constellation in the celestial canvas.
 - **Audio**: Web Audio synth drone engine controls, reverberation acoustics, and master gain volume slider.
 - **Ecosystem**: Quick-navigation directory across Robert Pelloni's interconnected ecosystem (`unitedbeats.org`, `robertpelloni.com`, `hypernexus.site`, `bobgame.com`, `fwber.me`, YouTube channels).
 - **Deploy**: Real-time deployment telemetry, Hetzner host status, SSL expiry tracking, and direct GitHub Actions pipeline triggers.
@@ -47,8 +47,8 @@ Accessible via the **⚡ Tray** top navigation dropdown:
 
 ## Collective Soul Registry (Detroit)
 
-Featuring 78 collective souls of the movement:
-*Robert Pelloni, Harry Kourlos, Lumbros Kourlos, Agathi, Phil, Michael, Mike, Chris, Danny, Dave, Dan, Laura, Julia, Crystal, Shonna, Kim, Brandon, Ken, Joey, Joe, Shannon, Donny, Addy, Craig, Adam, Amanda, Sommer, Matthew Sommer, T, Jen, Dale, Cliff, Christopher, Jude, Leah, Jennifer, James, Alex, Samson, Cory, John, Austin, Ana, Mireille, Niraj, Eugene, Nick, Bry, Sam, Charles, Jason, Hank, Matthew, Matt, Derek, Gregg, Adriana, Daphne, Tim, Frank, Megan, Megggan, Liz, Wayne, Josh, Neil, Jack, Steve, Klair, Rex, Chauncey, Jay, Splarka, Vivi, Vincent, Andrew, William, Christine, Gavin*
+Featuring 81 collective souls of the movement (each rendered in a unique readable font):
+*Robert Pelloni, Harry, Lumbros, Agathi, Papa, Phil, Michael, Mike, Chris, Danny, Dave, Dan, Laura, Julia, Crystal, Shonna, Kim, Brandon, Ken, Joey, Joe, Shannon, Donny, Addy, Craig, Adam, Amanda, Sommer, T, Jen, Dale, Cliff, Christopher, Jude, Leah, Jennifer, James, Alex, Samson, Cory, John, Austin, Ana, Mireille, Niraj, Eugene, Nick, Bry, Sam, Charles, Jason, Hank, Matthew, Matt, Derek, Gregg, Adriana, Daphne, Tim, Frank, Megan, Megggan, Liz, Wayne, Josh, Neil, Jack, Steve, Klair, Rex, Chauncey, Jay, Splarka, Vivi, Vincent, Andrew, William, Christine, Gavin, Jake, Will*
 
 ---
 

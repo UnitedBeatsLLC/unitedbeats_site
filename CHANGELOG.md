@@ -9,13 +9,29 @@ All notable changes to UnitedBeats are documented in this file. Version numbers 
   - Live-updating **$10,000.00 USD Private Commission Invoice** ledger (`UNITED BEATS LLC // PRIVATE COMMISSION`) with itemized retainer breakdown, Sovereign Principal Attestation, print/PDF stylesheet (`@media print`), WordPress Custom Post Type (`ub_lum_invoice` — *Lum $10K Chair* in WP Admin), and `POST /wp-json/unitedbeats/v1/lum-invoice` endpoint with email dispatch to `robert@unitedbeats.org`.
   - Top starburst HUD quick-jump gold pill (`Lum · $10K Chair`) and dedicated permalink page `/lum-10000-haircut/` in the Primary navigation matrix.
 - **Lumbros Dark Rainbow Oil-Sheen & 3.5s Pulsing God Light HUD (`v1.6.0`–`v1.7.0` theme sync)**:
-  - Captured and version-controlled the live 80-souls hero + 12-Color Harmonic Spectrum & Dark Rainbow Oil-Sheen optical HUD (`style.css`, `functions.php`, `front-page.php`, `header.php`).
+  - Captured and version-controlled the live 81-souls hero + 12-Color Harmonic Spectrum & Dark Rainbow Oil-Sheen optical HUD (`style.css`, `functions.php`, `front-page.php`, `header.php`, `footer.php`).
 - **Dedicated PHP-FPM Pool & Nginx FastCGI Microcache (`infra/`)**:
   - Isolated `unitedbeats.org` onto `/run/php/php8.4-fpm-unitedbeats.sock` (`pm.max_children = 12`, `request_terminate_timeout = 30s`) with Nginx `UNITEDBEATS` FastCGI microcaching (`X-UB-Cache`, stale-on-error failover, `/wp-json/` & `POST` bypass) to eliminate shared `[www]` pool HTTP 504 timeouts.
 
 ### Fixed
 - Guarded global hero keyboard shortcuts (`Tab`, `M`, `Space`) in `legacy-scripts.html` so typing inside `<textarea>` and `<select>` form controls works without triggering supernovae or toggling audio/hub overlays.
 - Updated `.github/workflows/deploy.yml` and `deploy.sh` to deploy `wordpress-theme/unitedbeats/` safely instead of overwriting the live WordPress root with static-only v1.2.0 steps.
+
+## [1.6.1] - 2026-11-15
+### Added
+- Added `Jake` and `Will` to the collective souls list (`81` souls total; expanded the readable Google Fonts pool to `84` distinct families so every soul continues to receive a unique font).
+### Changed
+- Removed `Kourlos` surname from `Harry` and `Lumbros` while keeping `Robert Pelloni` (all other souls use first names only).
+- Removed duplicate combined `Matthew Sommer` entry so `Matthew` and `Sommer` each appear once individually.
+
+## [1.6.0] - 2026-11-15
+### Added
+- Added `Papa` to the collective souls list and assigned every soul a randomly shuffled, distinct, strictly readable Google Font across both the celestial supernova canvas and the Operations Hub registry.
+- Integrated `lumbros.me` viscous 12-color Dark Rainbow Oil Sheen backplanes, `-24deg` diagonal spectrum magnifier, twin non-colliding oscillating laser bars, and `3.5s` Pulsing God Light across the WordPress theme and supernova HUD.
+
+## [1.5.0] - 2026-11-14
+### Changed
+- Applied initial `lumbros.me` Obsidian CRT Optical HUD and 12-Color Harmonic Spectrum theme inspiration to `wordpress-theme/unitedbeats` below the starburst hero and across inner WordPress pages without altering existing text content.
 
 ## [1.4.0] - 2026-11-14
 ### Added

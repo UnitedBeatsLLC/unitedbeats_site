@@ -13,8 +13,21 @@
     ></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@600&family=Space+Grotesk:wght@600&family=Plus+Jakarta+Sans:wght@600&family=Outfit:wght@600&family=Sora:wght@600&family=DM+Sans:wght@600&family=Urbanist:wght@600&family=Rubik:wght@600&family=Work+Sans:wght@600&family=Nunito:wght@700&family=Quicksand:wght@600&family=Cabin:wght@600&family=Karla:wght@600&family=Mulish:wght@600&family=Figtree:wght@600&family=Lexend:wght@600&family=Red+Hat+Display:wght@600&family=Exo+2:wght@600&family=Chakra+Petch:wght@600&family=Rajdhani:wght@600&family=Orbitron:wght@600&family=Oxanium:wght@600&family=Syne:wght@600&family=Josefin+Sans:wght@600&family=Montserrat:wght@600&family=Raleway:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Kanit:wght@600&family=Barlow:wght@600&family=Archivo:wght@600&family=Comfortaa:wght@600&family=Fredoka:wght@600&family=Varela+Round&family=Questrial&family=Public+Sans:wght@600&family=Playfair+Display:wght@600&family=Merriweather:wght@700&family=Lora:wght@600&family=Libre+Baskerville:wght@700&family=Crimson+Pro:wght@600&family=Spectral:wght@600&family=Cormorant+Garamond:wght@600&family=Bitter:wght@600&family=Arvo:wght@700&family=Zilla+Slab:wght@600&family=Roboto+Slab:wght@600&family=Domine:wght@600&family=Vollkorn:wght@600&family=EB+Garamond:wght@600&family=Fraunces:wght@600&family=Bree+Serif&family=Alegreya:wght@600&family=PT+Serif:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600&family=Cinzel:wght@600&family=Philosopher:wght@700&family=Marcellus&family=Prata&family=DM+Serif+Display&family=Crete+Round&family=Cardo:wght@700&family=Literata:wght@600&family=Newsreader:wght@600&family=Titillium+Web:wght@600&family=Maven+Pro:wght@600&family=Signika:wght@600&family=Asap:wght@600&family=Atkinson+Hyperlegible:wght@700&family=Righteous&family=Audiowide&family=Fira+Code:wght@600&family=JetBrains+Mono:wght@600&family=Space+Mono:wght@700&family=IBM+Plex+Mono:wght@600&family=Source+Code+Pro:wght@600&family=Ubuntu+Mono:wght@700&family=Inconsolata:wght@600&family=Courier+Prime:wght@700&family=Share+Tech+Mono&family=IBM+Plex+Sans:wght@600&family=Libre+Franklin:wght@600&family=DM+Mono:wght@500&family=Merriweather+Sans:wght@600&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -564,28 +577,99 @@
       }
       .soul-tag {
         background: rgba(255, 255, 255, 0.04);
-        padding: 5px 8px;
+        padding: 6px 9px;
         border-radius: 4px;
-        font-size: 11px;
-        color: #aaa;
+        font-size: 12px;
+        color: #ccc;
         display: flex;
         align-items: center;
         gap: 6px;
         cursor: pointer;
+        transition: all 0.2s ease;
       }
       .soul-tag:hover {
-        background: rgba(212, 175, 55, 0.15);
+        background: rgba(52, 211, 153, 0.14);
         color: #fff;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
       }
       .soul-tag.highlight {
-        border-left: 2px solid var(--ub-gold);
-        color: var(--ub-gold);
+        border-left: 2px solid #34d399;
+        background: rgba(52, 211, 153, 0.16);
+        color: #a7f3d0;
+        box-shadow: 0 0 14px rgba(52, 211, 153, 0.28);
       }
 
+      /* Dark Rainbow Oil Sheen + 3.5s Pulsing God Light HUD Accents */
+      @keyframes ubHudGodPulse {
+        0%, 66% {
+          border-color: rgba(52, 211, 153, 0.26);
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.72), 0 0 14px rgba(16, 185, 129, 0.14);
+        }
+        85% {
+          border-color: rgba(255, 255, 255, 0.78);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.78),
+            0 0 16px rgba(255, 255, 255, 0.45),
+            0 0 34px rgba(52, 211, 153, 0.36);
+        }
+        88% {
+          border-color: rgba(167, 243, 208, 0.62);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 22px rgba(52, 211, 153, 0.3);
+        }
+        100% {
+          border-color: rgba(52, 211, 153, 0.26);
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.72), 0 0 14px rgba(16, 185, 129, 0.14);
+        }
+      }
+      @keyframes ubHudOilFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .nav-btn,
+      .status-pill {
+        background-image: linear-gradient(
+          125deg,
+          rgba(6, 12, 10, 0.84) 0%,
+          rgba(255, 36, 86, 0.11) 18%,
+          rgba(250, 204, 21, 0.09) 34%,
+          rgba(16, 185, 129, 0.14) 52%,
+          rgba(56, 189, 248, 0.12) 70%,
+          rgba(168, 85, 247, 0.13) 86%,
+          rgba(6, 12, 10, 0.86) 100%
+        );
+        background-size: 260% 260%;
+        animation:
+          ubHudOilFlow 11s ease-in-out infinite,
+          ubHudGodPulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      }
+      .status-dot {
+        animation: ubHudDotGod 3.5s ease-in-out infinite;
+      }
+      @keyframes ubHudDotGod {
+        0%, 66%, 100% {
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981, 0 0 16px rgba(16, 185, 129, 0.5);
+          transform: scale(1);
+        }
+        85% {
+          background: #ffffff;
+          box-shadow: 0 0 12px #ffffff, 0 0 24px #34d399, 0 0 36px rgba(52, 211, 153, 0.8);
+          transform: scale(1.22);
+        }
+      }
+      .hub-panel,
+      .tray-menu {
+        background-image:
+          radial-gradient(ellipse 90% 60% at 15% 10%, rgba(16, 185, 129, 0.11), transparent 65%),
+          radial-gradient(ellipse 85% 55% at 88% 85%, rgba(168, 85, 247, 0.1), transparent 65%),
+          linear-gradient(155deg, rgba(5, 10, 8, 0.92), rgba(7, 13, 11, 0.94));
+        animation: ubHudGodPulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      }
     </style>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+<canvas id="canvas"></canvas>
 
     <!-- Top Navigation Bar & System Tray Icon -->
     <header class="top-nav-bar" id="topNav">
@@ -624,6 +708,11 @@
         </div>
       </div>
 
+      <a href="#lum-chair" class="nav-btn ub-lum-top-pill" id="lumChairNavBtn" title="Lum's $10,000 Haircut &amp; Life-Changing Chair Commission" style="text-decoration:none;border-color:rgba(255,215,0,0.68);color:#fff2b2;">
+        <svg viewBox="0 0 24 24" style="fill:#ffd700;"><path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3h-3z"/></svg>
+        <span>Lum &middot; $10K Chair</span>
+      </a>
+
       <div class="status-pill">
         <span class="status-dot"></span>
         <span id="runtimeStatus">UB-DETROIT ONLINE</span>
@@ -642,7 +731,7 @@
 
       <div class="hub-tabs">
         <button class="hub-tab-btn active" data-tab="physics">Physics</button>
-        <button class="hub-tab-btn" data-tab="souls">Souls (79)</button>
+        <button class="hub-tab-btn" data-tab="souls">Souls (81)</button>
         <button class="hub-tab-btn" data-tab="audio">Audio</button>
         <button class="hub-tab-btn" data-tab="ecosystem">Ecosystem</button>
         <button class="hub-tab-btn" data-tab="deploy">Deploy</button>
@@ -691,9 +780,9 @@
           </div>
         </div>
 
-        <!-- 79 Souls Tab -->
+        <!-- 81 Souls Tab -->
         <div class="hub-section" id="tab-souls">
-          <div class="tray-title">Detroit Souls Registry (79)</div>
+          <div class="tray-title">Detroit Souls Registry (81)</div>
           <input type="text" class="soul-search-box" id="soulSearchInput" placeholder="Filter soul names or pioneers..." />
           <div class="souls-grid" id="soulsGrid"></div>
         </div>
@@ -771,7 +860,7 @@
     <div class="hero">
       <h1 class="logo">UnitedBeats</h1>
       <p class="tagline">EVERYBODY WINS</p>
-      <p class="subtitle">79 souls · 1 universe</p>
+      <p class="subtitle">81 souls · 1 universe</p>
     </div>
 
     <div class="click-hint">CLICK ANYWHERE TO CREATE SUPERNOVAE</div>
@@ -793,7 +882,6 @@
     <div class="message-hint">
       Please message me if you want your name changed or if I forgot you!
     </div>
-
     <script>
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
@@ -823,9 +911,10 @@
 
       const names = [
         "Robert Pelloni",
-        "Harry Kourlos",
-        "Lumbros Kourlos",
+        "Harry",
+        "Lumbros",
         "Agathi",
+        "Papa",
         "Phil",
         "Michael",
         "Mike",
@@ -849,7 +938,6 @@
         "Adam",
         "Amanda",
         "Sommer",
-        "Matthew Sommer",
         "T",
         "Jen",
         "Dale",
@@ -901,7 +989,115 @@
         "William",
         "Christine",
         "Gavin",
+        "Jake",
+        "Will",
       ];
+
+      // 84 strictly readable, distinct Google Font families — shuffled uniquely per soul
+      const readableSoulFonts = [
+        { family: "'Inter', sans-serif", weight: "600" },
+        { family: "'Manrope', sans-serif", weight: "600" },
+        { family: "'Space Grotesk', sans-serif", weight: "600" },
+        { family: "'Plus Jakarta Sans', sans-serif", weight: "600" },
+        { family: "'Outfit', sans-serif", weight: "600" },
+        { family: "'Sora', sans-serif", weight: "600" },
+        { family: "'DM Sans', sans-serif", weight: "600" },
+        { family: "'Urbanist', sans-serif", weight: "600" },
+        { family: "'Rubik', sans-serif", weight: "600" },
+        { family: "'Work Sans', sans-serif", weight: "600" },
+        { family: "'Nunito', sans-serif", weight: "700" },
+        { family: "'Quicksand', sans-serif", weight: "600" },
+        { family: "'Cabin', sans-serif", weight: "600" },
+        { family: "'Karla', sans-serif", weight: "600" },
+        { family: "'Mulish', sans-serif", weight: "600" },
+        { family: "'Figtree', sans-serif", weight: "600" },
+        { family: "'Lexend', sans-serif", weight: "600" },
+        { family: "'Red Hat Display', sans-serif", weight: "600" },
+        { family: "'Exo 2', sans-serif", weight: "600" },
+        { family: "'Chakra Petch', sans-serif", weight: "600" },
+        { family: "'Rajdhani', sans-serif", weight: "600" },
+        { family: "'Orbitron', sans-serif", weight: "600" },
+        { family: "'Oxanium', sans-serif", weight: "600" },
+        { family: "'Syne', sans-serif", weight: "600" },
+        { family: "'Josefin Sans', sans-serif", weight: "600" },
+        { family: "'Montserrat', sans-serif", weight: "600" },
+        { family: "'Raleway', sans-serif", weight: "600" },
+        { family: "'Poppins', sans-serif", weight: "600" },
+        { family: "'Kanit', sans-serif", weight: "600" },
+        { family: "'Barlow', sans-serif", weight: "600" },
+        { family: "'Archivo', sans-serif", weight: "600" },
+        { family: "'Comfortaa', sans-serif", weight: "600" },
+        { family: "'Fredoka', sans-serif", weight: "600" },
+        { family: "'Varela Round', sans-serif", weight: "400" },
+        { family: "'Questrial', sans-serif", weight: "400" },
+        { family: "'Public Sans', sans-serif", weight: "600" },
+        { family: "'Playfair Display', serif", weight: "600" },
+        { family: "'Merriweather', serif", weight: "700" },
+        { family: "'Lora', serif", weight: "600" },
+        { family: "'Libre Baskerville', serif", weight: "700" },
+        { family: "'Crimson Pro', serif", weight: "600" },
+        { family: "'Spectral', serif", weight: "600" },
+        { family: "'Cormorant Garamond', serif", weight: "600" },
+        { family: "'Bitter', serif", weight: "600" },
+        { family: "'Arvo', serif", weight: "700" },
+        { family: "'Zilla Slab', serif", weight: "600" },
+        { family: "'Roboto Slab', serif", weight: "600" },
+        { family: "'Domine', serif", weight: "600" },
+        { family: "'Vollkorn', serif", weight: "600" },
+        { family: "'EB Garamond', serif", weight: "600" },
+        { family: "'Fraunces', serif", weight: "600" },
+        { family: "'Bree Serif', serif", weight: "400" },
+        { family: "'Alegreya', serif", weight: "600" },
+        { family: "'PT Serif', serif", weight: "700" },
+        { family: "'Noto Serif', serif", weight: "600" },
+        { family: "'Cinzel', serif", weight: "600" },
+        { family: "'Philosopher', sans-serif", weight: "700" },
+        { family: "'Marcellus', serif", weight: "400" },
+        { family: "'Prata', serif", weight: "400" },
+        { family: "'DM Serif Display', serif", weight: "400" },
+        { family: "'Crete Round', serif", weight: "400" },
+        { family: "'Cardo', serif", weight: "700" },
+        { family: "'Literata', serif", weight: "600" },
+        { family: "'Newsreader', serif", weight: "600" },
+        { family: "'Titillium Web', sans-serif", weight: "600" },
+        { family: "'Maven Pro', sans-serif", weight: "600" },
+        { family: "'Signika', sans-serif", weight: "600" },
+        { family: "'Asap', sans-serif", weight: "600" },
+        { family: "'Atkinson Hyperlegible', sans-serif", weight: "700" },
+        { family: "'Righteous', sans-serif", weight: "400" },
+        { family: "'Audiowide', sans-serif", weight: "400" },
+        { family: "'Fira Code', monospace", weight: "600" },
+        { family: "'JetBrains Mono', monospace", weight: "600" },
+        { family: "'Space Mono', monospace", weight: "700" },
+        { family: "'IBM Plex Mono', monospace", weight: "600" },
+        { family: "'Source Code Pro', monospace", weight: "600" },
+        { family: "'Ubuntu Mono', monospace", weight: "700" },
+        { family: "'Inconsolata', monospace", weight: "600" },
+        { family: "'Courier Prime', monospace", weight: "700" },
+        { family: "'Share Tech Mono', monospace", weight: "400" },
+        { family: "'IBM Plex Sans', sans-serif", weight: "600" },
+        { family: "'Libre Franklin', sans-serif", weight: "600" },
+        { family: "'DM Mono', monospace", weight: "500" },
+        { family: "'Merriweather Sans', sans-serif", weight: "600" },
+      ];
+
+      const shuffledSoulFonts = [...readableSoulFonts];
+      for (let i = shuffledSoulFonts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledSoulFonts[i], shuffledSoulFonts[j]] = [
+          shuffledSoulFonts[j],
+          shuffledSoulFonts[i],
+        ];
+      }
+
+      const soulFontMap = new Map();
+      names.forEach((soulName, idx) => {
+        const spec = shuffledSoulFonts[idx % shuffledSoulFonts.length];
+        soulFontMap.set(soulName, spec);
+        if (document.fonts && document.fonts.load) {
+          document.fonts.load(`${spec.weight} 18px ${spec.family}`).catch(() => {});
+        }
+      });
 
       // Deep space background
       const layers = [
@@ -1043,26 +1239,30 @@
               const speed = 1.5 + Math.random() * 3;
               const colors = [
                 "#ffd700",
-                "#ff6b35",
+                "#ff7a18",
+                "#ff2456",
                 "#ff1493",
-                "#8a2be2",
+                "#d946ef",
+                "#a855f7",
+                "#6366f1",
                 "#00bfff",
-                "#ff4500",
+                "#14b8a6",
+                "#34d399",
                 "#7cfc00",
-                "#ff69b4",
-                "#00ced1",
-                "#ffa500",
-                "#ff6ec7",
                 "#7fffd4",
               ];
               return {
                 name,
+                fontSpec: soulFontMap.get(name) || {
+                  family: "'Inter', sans-serif",
+                  weight: "600",
+                },
                 x,
                 y,
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
                 angle,
-                size: 0.7 + Math.random() * 0.7,
+                size: 0.72 + Math.random() * 0.68,
                 color: colors[i % colors.length],
                 opacity: 0,
                 delay: 0.3 + Math.random() * 2,
@@ -1337,18 +1537,47 @@
               ctx.globalAlpha = 1;
             }
 
-            // Name
+            // Name (rendered in each soul's unique readable font)
+            const isHighlighted = activeSoulHighlight === p.name;
+            const fontPx = Math.max(
+              14,
+              Math.round(p.size * (isHighlighted ? 23 : 19)),
+            );
             ctx.save();
-            ctx.globalAlpha = p.opacity;
-            ctx.font = `bold ${p.size * 18}px 'Inter', sans-serif`;
+            ctx.globalAlpha = isHighlighted ? 1 : p.opacity;
+            ctx.font = `${p.fontSpec.weight} ${fontPx}px ${p.fontSpec.family}`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.shadowColor = p.color;
-            ctx.shadowBlur = 25;
-            ctx.fillStyle = p.color;
+            if (isHighlighted) {
+              const haloR = Math.max(36, fontPx * 2.1);
+              const halo = ctx.createRadialGradient(
+                p.x,
+                p.y,
+                0,
+                p.x,
+                p.y,
+                haloR,
+              );
+              halo.addColorStop(0, "rgba(255, 255, 255, 0.38)");
+              halo.addColorStop(0.45, "rgba(52, 211, 153, 0.24)");
+              halo.addColorStop(1, "transparent");
+              ctx.fillStyle = halo;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, haloR, 0, 6.28);
+              ctx.fill();
+            }
+            ctx.lineJoin = "round";
+            ctx.lineWidth = 3.2;
+            ctx.strokeStyle = "rgba(2, 5, 4, 0.78)";
+            ctx.strokeText(p.name, p.x, p.y);
+            ctx.shadowColor = isHighlighted ? "#ffffff" : p.color;
+            ctx.shadowBlur = isHighlighted ? 34 : 25;
+            ctx.fillStyle = isHighlighted ? "#6ee7b7" : p.color;
             ctx.fillText(p.name, p.x, p.y);
-            ctx.shadowBlur = 8;
-            ctx.fillStyle = "rgba(255,255,255,0.6)";
+            ctx.shadowBlur = isHighlighted ? 14 : 8;
+            ctx.fillStyle = isHighlighted
+              ? "rgba(255,255,255,0.96)"
+              : "rgba(255,255,255,0.72)";
             ctx.fillText(p.name, p.x, p.y);
             ctx.restore();
           });
@@ -1447,18 +1676,49 @@
         // Background (transparent: building photo shows through)
         ctx.clearRect(0, 0, W, H);
 
-        // Nebula
-        for (let i = 0; i < 4; i++) {
-          const nx = cx + Math.sin(time * 0.1 + i * 1.5) * 300;
-          const ny = cy + Math.cos(time * 0.1 + i * 1.5) * 200;
-          const neb = ctx.createRadialGradient(nx, ny, 0, nx, ny, 500);
-          const hue = (time * 15 + i * 90) % 360;
-          neb.addColorStop(0, `hsla(${hue}, 80%, 30%, 0.02)`);
-          neb.addColorStop(0.5, `hsla(${hue + 30}, 70%, 20%, 0.01)`);
+        // Viscous 12-Spectrum Dark Rainbow Oil-Sheen Nebula
+        for (let i = 0; i < 6; i++) {
+          const drift = time * 0.11 + i * 1.047;
+          const nx = cx + Math.sin(drift) * (W * 0.28) + Math.cos(drift * 0.6) * 90;
+          const ny = cy + Math.cos(drift * 0.85) * (H * 0.24);
+          const nebR = Math.max(420, Math.min(W, H) * 0.58);
+          const neb = ctx.createRadialGradient(nx, ny, 0, nx, ny, nebR);
+          const hue = (time * 18 + i * 60) % 360;
+          neb.addColorStop(0, `hsla(${hue}, 92%, 44%, 0.048)`);
+          neb.addColorStop(0.42, `hsla(${(hue + 48) % 360}, 88%, 34%, 0.028)`);
+          neb.addColorStop(0.75, `hsla(${(hue + 96) % 360}, 82%, 24%, 0.012)`);
           neb.addColorStop(1, "transparent");
           ctx.fillStyle = neb;
           ctx.fillRect(0, 0, W, H);
         }
+
+        // 3.5s Pulsing God Light Corona & Vertical Hyper-Beam
+        const godPhase = (time % 3.5) / 3.5;
+        const godDist = Math.abs(godPhase - 0.86);
+        const godSurge = Math.exp(-Math.pow(godDist / 0.055, 2));
+        const godAmbient = 0.22 + 0.14 * Math.sin(godPhase * 6.28318);
+        const godPower = Math.min(1, godAmbient + godSurge * 0.85);
+
+        ctx.save();
+        const beamHalfW = 28 + godSurge * 85;
+        const vBeam = ctx.createLinearGradient(cx - beamHalfW, 0, cx + beamHalfW, 0);
+        vBeam.addColorStop(0, "transparent");
+        vBeam.addColorStop(0.32, `rgba(52, 211, 153, ${0.025 + godSurge * 0.09})`);
+        vBeam.addColorStop(0.5, `rgba(255, 255, 255, ${0.035 + godSurge * 0.22})`);
+        vBeam.addColorStop(0.68, `rgba(168, 85, 247, ${0.022 + godSurge * 0.08})`);
+        vBeam.addColorStop(1, "transparent");
+        ctx.fillStyle = vBeam;
+        ctx.fillRect(cx - beamHalfW, 0, beamHalfW * 2, H);
+
+        const godRadius = Math.max(260, Math.min(W, H) * (0.36 + godSurge * 0.22));
+        const godGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, godRadius);
+        godGlow.addColorStop(0, `rgba(255, 255, 255, ${0.04 * godPower + godSurge * 0.18})`);
+        godGlow.addColorStop(0.28, `rgba(110, 231, 183, ${0.032 * godPower + godSurge * 0.11})`);
+        godGlow.addColorStop(0.62, `rgba(56, 189, 248, ${0.018 * godPower + godSurge * 0.05})`);
+        godGlow.addColorStop(1, "transparent");
+        ctx.fillStyle = godGlow;
+        ctx.fillRect(0, 0, W, H);
+        ctx.restore();
 
         // Parallax stars
         const mx = (mouseX - cx) * 0.01;
@@ -1693,7 +1953,7 @@
       const hubAudioToggleBtn = document.getElementById("hubAudioToggleBtn");
       const audioHubStatus = document.getElementById("audioHubStatus");
 
-      // Populate Souls Grid
+      // Populate Souls Grid (each tag rendered in its soul's unique readable font)
       function populateSouls(filterText = "") {
         if (!soulsGrid) return;
         soulsGrid.innerHTML = "";
@@ -1702,6 +1962,11 @@
           .forEach(name => {
             const tag = document.createElement("div");
             tag.className = "soul-tag" + (activeSoulHighlight === name ? " highlight" : "");
+            const spec = soulFontMap.get(name);
+            if (spec) {
+              tag.style.fontFamily = spec.family;
+              tag.style.fontWeight = spec.weight;
+            }
             tag.textContent = name;
             tag.addEventListener("click", () => {
               activeSoulHighlight = (activeSoulHighlight === name) ? null : name;
@@ -1834,7 +2099,7 @@
 
       // Keyboard Shortcuts
       document.addEventListener("keydown", (e) => {
-        if (e.target.tagName === "INPUT") return;
+        if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT" || e.target.isContentEditable)) return;
         if (e.key === "Tab") {
           e.preventDefault();
           toggleHub();
