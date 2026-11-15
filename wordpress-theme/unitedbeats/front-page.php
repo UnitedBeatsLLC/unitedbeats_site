@@ -39,10 +39,11 @@ body{overflow-y:auto !important;overflow-x:hidden;}
       <?php include __DIR__ . '/lum-commission.php'; ?>
       <h2>Projects</h2>
       <?php wp_nav_menu(['theme_location'=>'primary','menu_class'=>'ub-nav','container'=>false,'fallback_cb'=>false]); ?>
+      <?php $q=new WP_Query(['post_type'=>'post','posts_per_page'=>10]); if($q->have_posts()): ?>
       <h2>Latest Updates</h2>
-      <?php $q=new WP_Query(['post_type'=>'post','posts_per_page'=>10]); if($q->have_posts()): while($q->have_posts()): $q->the_post(); ?>
+      <?php while($q->have_posts()): $q->the_post(); ?>
         <article class="ub-post"><h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3><div><?php echo get_the_date(); ?></div><?php the_excerpt(); ?></article>
-      <?php endwhile; wp_reset_postdata(); else: echo '<p>No posts yet.</p>'; endif; ?>
+      <?php endwhile; wp_reset_postdata(); endif; ?>
     </div>
   </div>
 </main>
