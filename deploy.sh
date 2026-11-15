@@ -1,69 +1,28 @@
 #!/bin/bash
-# Deploy UnitedBeats site to Hetzner
+set -euo pipefail
+# Deploy UnitedBeats WordPress theme & AdSense ads.txt to Hetzner
 # Domains: unitedbeats.org, unitedbeats.net, unitedbeats.site
+# Pass --force-static ONLY if intentionally reverting to a standalone static index.html site.
 
 SERVER="hetzner"
 REMOTE_DIR="/var/www/unitedbeats"
-NGINX_AVAIL="/etc/nginx/sites-available/unitedbeats"
-NGINX_ENABLED="/etc/nginx/sites-enabled/unitedbeats"
+THEME_DIR="$REMOTE_DIR/wp-content/themes/unitedbeats"
 
-echo "=== Deploying UnitedBeats ==="
+if [[ "${1:-}" == "--force-static" ]]; then
+  echo "WARNING: --force-static requested. Uploading static index.html & ads.txt only..."
+  scp index.html ads.txt "$SERVER:$REMOTE_DIR/"
+  ssh "$SERVER" "chown www-data:www-data $REMOTE_DIR/index.html $REMOTE_DIR/ads.txt && nginx -t && systemctl reload nginx"
+  exit 0
+fi
 
-# Upload files (both single-page app and verified Google AdSense ads.txt)
-echo "Uploading files..."
-ssh $SERVER "mkdir -p $REMOTE_DIR"
-scp index.html ads.txt $SERVER:$REMOTE_DIR/
+echo "=== Deploying UnitedBeats WordPress Theme (v1.7.0) ==="
+ssh "$SERVER" "mkdir -p $THEME_DIR"
+scp -r wordpress-theme/unitedbeats/* "$SERVER:$THEME_DIR/"
+scp ads.txt "$SERVER:$REMOTE_DIR/ads.txt"
 
-# Set permissions
-ssh $SERVER "chown -R www-data:www-data $REMOTE_DIR && chmod -R 755 $REMOTE_DIR"
+ssh "$SERVER" "chown -R www-data:www-data $THEME_DIR $REMOTE_DIR/ads.txt && find $THEME_DIR -type d -exec chmod 755 {} + && find $THEME_DIR -type f -exec chmod 644 {} + && for f in $THEME_DIR/*.php; do php -l \"\$f\"; done && rm -rf /var/cache/nginx/unitedbeats/* && nginx -t && systemctl reload nginx"
 
-# Create nginx config
-echo "Configuring nginx..."
-ssh $SERVER "cat > $NGINX_AVAIL << 'EOF'
-server {
-    listen 80;
-    listen [::]:80;
-    server_name unitedbeats.org www.unitedbeats.org unitedbeats.net www.unitedbeats.net unitedbeats.site www.unitedbeats.site;
-
-    root /var/www/unitedbeats;
-    index index.html;
-
-    client_max_body_size 10m;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-
-    # Cache static assets
-    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2)$ {
-        expires 1y;
-        add_header Cache-Control \"public, immutable\";
-    }
-
-    # Security headers
-    add_header X-Frame-Options \"SAMEORIGIN\" always;
-    add_header X-Content-Type-Options \"nosniff\" always;
-    add_header Referrer-Policy \"strict-origin-when-cross-origin\" always;
-
-    # Gzip
-    gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript image/svg+xml;
-}
-EOF"
-
-# Enable site
-ssh $SERVER "ln -sf $NGINX_AVAIL $NGINX_ENABLED"
-
-# Test and reload nginx
-ssh $SERVER "nginx -t && systemctl reload nginx"
-
-# Set up SSL with certbot (if not already done)
-echo "Setting up SSL..."
-ssh $SERVER "certbot --nginx -d unitedbeats.org -d www.unitedbeats.org -d unitedbeats.net -d www.unitedbeats.net -d unitedbeats.site -d www.unitedbeats.site --non-interactive --agree-tos --email pelloni.robert@gmail.com 2>/dev/null || echo 'SSL may already be configured'"
-
-echo ""
 echo "=== Deployment Complete ==="
-echo "Sites available at:"
 echo "  https://unitedbeats.org"
-echo "  https://unitedbeats.net"
-echo "  https://unitedbeats.site"
+echo "  https://unitedbeats.org/#lum-chair"
+echo "  https://unitedbeats.org/lum-10000-haircut/"

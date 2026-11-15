@@ -1,43 +1,19 @@
-# Handoff Documentation
+# Handoff Documentation — UnitedBeats (`v1.7.0` · 2026-11-15)
 
-## Session Summary
-- Established GitHub Actions automated deployment workflow (`.github/workflows/deploy.yml`) resolving remote deployment friction to Hetzner by leveraging repository secrets.
-- Overhauled and consolidated the dashboard UI and System Tray into `index.html`:
-  - Interactive single-pane Operations Hub with 5 tabs: Physics, Souls (76), Audio, Ecosystem, Deploy Telemetry.
-  - Interactive top-bar System Tray menu with mute, pause, filament toggle, and server simulation control.
-  - Comprehensive searchable directory for the 76 Detroit collective soul names with constellation focus.
-  - Tooltips for all operational elements.
-- Verified live web domains (`unitedbeats.org`, `unitedbeats.net`, `unitedbeats.site`), confirming AdSense script and `ads.txt` presence and status 200 responses.
-- Developed autonomous monitoring tools in `/home/jules/self_created_tools/`:
-  - `monitor_uptime.py`: Automated HTTP latency, SSL certificate expiry, and `ads.txt` record verification across all production domains.
-  - `monitor_performance.py`: Playwright-driven browser telemetry tracking DOM load, canvas render resolution, JS heap memory, and console error surveillance.
-- Completed full governance documentation suite aligned with autonomous development standards.
-
-## Production Health & Telemetry Metrics (Latest Verification)
-- **Live Domains Health**:
-  - `unitedbeats.org`: HTTP 200 (Latency: ~225ms) | SSL valid until Jan 24, 2027 (79 days left)
-  - `unitedbeats.net`: HTTP 200 (Latency: ~133ms) | SSL valid until Dec 27, 2026 (51 days left)
-  - `unitedbeats.site`: HTTP 200 (Latency: ~133ms) | SSL valid until Dec 27, 2026 (51 days left)
-- **AdSense Verification**: `ads.txt` verified direct authorization: `google.com, pub-1203453275296694, DIRECT, f08c47fec0942fa0`.
-- **Browser Performance**:
-  - Uncaught page errors: 0
-  - Console errors: 0
-  - JS Heap footprint: ~28-33 MB used (well within performance budgets)
-  - Canvas rendering: 1440x900 full retina resolution responsive animation loop.
+## Latest Session Summary (`2026-11-15`)
+- **The $10,000 Haircut & Life-Changing Chair Commission by Lum (`v1.7.0`)**:
+  - Built and deployed `wordpress-theme/unitedbeats/lum-commission.php` + styles in `style.css` + WordPress backend hooks in `functions.php`.
+  - Live on `https://unitedbeats.org/#lum-chair` (with top HUD `Lum · $10K Chair` pill) and `https://unitedbeats.org/lum-10000-haircut/` (added to Primary menu `term_id=2`).
+  - Features all 5 qualification questions for zero-expense-problem billionaires/celebrities seeking Lum (Co-Founder of United Beats, visual artist all the way to math magician with his friend Bob), live-synced **$10,000.00 USD** Private Commission Invoice, `POST /wp-json/unitedbeats/v1/lum-invoice`, WP Admin `Lum $10K Chair` (`ub_lum_invoice` CPT), email notification to `robert@unitedbeats.org`, and `@media print` official PDF invoice layout.
+- **504 Outage Root-Cause Resolution (`infra/`)**:
+  - Provisioned `/etc/php/8.4/fpm/pool.d/unitedbeats.conf` (`/run/php/php8.4-fpm-unitedbeats.sock`, `pm.max_children = 12`, `request_terminate_timeout = 30s`) and raised `[www]` pool `pm.max_children` from `8` to `16`.
+  - Enabled `/etc/nginx/conf.d/unitedbeats-cache.conf` (`UNITEDBEATS` FastCGI cache, `X-UB-Cache: MISS -> HIT`, bypassing `POST` and `/wp-json/`).
+- **CI/CD Alignment (`.github/workflows/deploy.yml` & `deploy.sh`)**:
+  - Synced the complete live `wordpress-theme/unitedbeats/` (`v1.6.0` Lumbros Dark Rainbow Oil-Sheen + `v1.7.0` Lum $10K Commission) from Hetzner into git and updated `.github/workflows/deploy.yml` + `deploy.sh` to deploy the WordPress theme safely with `php -l` validation and FastCGI cache purge.
 
 ## Key Files
-- `.github/workflows/deploy.yml`: GitHub Actions pipeline for Hetzner deployment.
-- `index.html`: Main single-page application with canvas visuals, audio stream, Operations Hub, and System Tray.
-- `deploy.sh`: Shell deployment script for manual execution.
-- `VERSION.md`: Global version identifier (`1.2.0`).
-- `DEPLOY.md`: Deployment reference and secrets configuration guide.
-- `ROADMAP.md`: Major architectural milestones.
-- `TODO.md`: Granular actionable items.
-- `VISION.md`: Comprehensive core philosophy and project design.
-- `MEMORY.md`: Persistent engineering decisions and architectural notes.
-- `IDEAS.md`: Creative expansion proposals.
-- `CHANGELOG.md`: Detailed version history.
-
-
-## 2026-11-14 WordPress migration
-- WP live at unitedbeats.org (200), theme UnitedBeats Legacy preserves homepage; posts at #posts below 100vh spacer; 10 project pages all 200; admin creds only on server /root/.unitedbeats_wp_creds (600). Repo moved to UnitedBeatsLLC org. CDP menu-list confirmation asked from Bobbi/Gemini/ChatGPT (pending, out-of-usage until Sat 18:38).
+- `wordpress-theme/unitedbeats/lum-commission.php`: 5-question qualification dossier & $10,000.00 USD Private Commission Invoice template.
+- `wordpress-theme/unitedbeats/functions.php`: Font/style enqueues, `ub_lum_invoice` CPT, `[ub_lum_commission]` shortcode, and `/wp-json/unitedbeats/v1/lum-invoice` REST route.
+- `wordpress-theme/unitedbeats/style.css`: Lumbros Dark Rainbow Oil-Sheen, 12-Color Spectrum, 3.5s God-Light HUD, Sovereign Gold invoice styling, and `@media print` PDF stylesheet.
+- `infra/`: Production PHP-FPM (`php-fpm-unitedbeats.conf`) and Nginx (`nginx-unitedbeats-cache.conf`, `nginx-site-unitedbeats.conf`) configurations.
+- `.github/workflows/deploy.yml` & `deploy.sh`: Automated & manual WordPress theme deployment to Hetzner.

@@ -1,1 +1,1 @@
-</div><?php wp_footer(); ?></body></html>
+</div></div><?php wp_footer(); ?></body></html>

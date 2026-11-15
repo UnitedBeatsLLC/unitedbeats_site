@@ -38,12 +38,13 @@ jobs:
           EOF
           chmod 600 ~/.ssh/config
 
-      - name: Sync Static Files to Remote Host
+      - name: Sync WordPress Theme & AdSense Verification to Hetzner
         run: |
-          ssh hetzner "mkdir -p /var/www/unitedbeats"
-          scp index.html ads.txt hetzner:/var/www/unitedbeats/
-          ssh hetzner "chown -R www-data:www-data /var/www/unitedbeats && chmod -R 755 /var/www/unitedbeats"
+          ssh hetzner "mkdir -p /var/www/unitedbeats/wp-content/themes/unitedbeats"
+          scp -r wordpress-theme/unitedbeats/* hetzner:/var/www/unitedbeats/wp-content/themes/unitedbeats/
+          scp ads.txt hetzner:/var/www/unitedbeats/ads.txt
+          ssh hetzner "chown -R www-data:www-data /var/www/unitedbeats/wp-content/themes/unitedbeats /var/www/unitedbeats/ads.txt && find /var/www/unitedbeats/wp-content/themes/unitedbeats -type d -exec chmod 755 {} + && find /var/www/unitedbeats/wp-content/themes/unitedbeats -type f -exec chmod 644 {} +"
 
-      - name: Verify and Reload Nginx
+      - name: Lint Theme PHP, Purge FastCGI Microcache & Reload Nginx
         run: |
-          ssh hetzner "nginx -t && systemctl reload nginx"
+          ssh hetzner 'for f in /var/www/unitedbeats/wp-content/themes/unitedbeats/*.php; do php -l "$f"; done && rm -rf /var/cache/nginx/unitedbeats/* && nginx -t && systemctl reload nginx'

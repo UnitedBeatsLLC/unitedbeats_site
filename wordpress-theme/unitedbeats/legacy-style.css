@@ -545,22 +545,93 @@
       }
       .soul-tag {
         background: rgba(255, 255, 255, 0.04);
-        padding: 5px 8px;
+        padding: 6px 9px;
         border-radius: 4px;
-        font-size: 11px;
-        color: #aaa;
+        font-size: 12px;
+        color: #ccc;
         display: flex;
         align-items: center;
         gap: 6px;
         cursor: pointer;
+        transition: all 0.2s ease;
       }
       .soul-tag:hover {
-        background: rgba(212, 175, 55, 0.15);
+        background: rgba(52, 211, 153, 0.14);
         color: #fff;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
       }
       .soul-tag.highlight {
-        border-left: 2px solid var(--ub-gold);
-        color: var(--ub-gold);
+        border-left: 2px solid #34d399;
+        background: rgba(52, 211, 153, 0.16);
+        color: #a7f3d0;
+        box-shadow: 0 0 14px rgba(52, 211, 153, 0.28);
       }
 
+      /* Dark Rainbow Oil Sheen + 3.5s Pulsing God Light HUD Accents */
+      @keyframes ubHudGodPulse {
+        0%, 66% {
+          border-color: rgba(52, 211, 153, 0.26);
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.72), 0 0 14px rgba(16, 185, 129, 0.14);
+        }
+        85% {
+          border-color: rgba(255, 255, 255, 0.78);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.78),
+            0 0 16px rgba(255, 255, 255, 0.45),
+            0 0 34px rgba(52, 211, 153, 0.36);
+        }
+        88% {
+          border-color: rgba(167, 243, 208, 0.62);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 22px rgba(52, 211, 153, 0.3);
+        }
+        100% {
+          border-color: rgba(52, 211, 153, 0.26);
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.72), 0 0 14px rgba(16, 185, 129, 0.14);
+        }
+      }
+      @keyframes ubHudOilFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .nav-btn,
+      .status-pill {
+        background-image: linear-gradient(
+          125deg,
+          rgba(6, 12, 10, 0.84) 0%,
+          rgba(255, 36, 86, 0.11) 18%,
+          rgba(250, 204, 21, 0.09) 34%,
+          rgba(16, 185, 129, 0.14) 52%,
+          rgba(56, 189, 248, 0.12) 70%,
+          rgba(168, 85, 247, 0.13) 86%,
+          rgba(6, 12, 10, 0.86) 100%
+        );
+        background-size: 260% 260%;
+        animation:
+          ubHudOilFlow 11s ease-in-out infinite,
+          ubHudGodPulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      }
+      .status-dot {
+        animation: ubHudDotGod 3.5s ease-in-out infinite;
+      }
+      @keyframes ubHudDotGod {
+        0%, 66%, 100% {
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981, 0 0 16px rgba(16, 185, 129, 0.5);
+          transform: scale(1);
+        }
+        85% {
+          background: #ffffff;
+          box-shadow: 0 0 12px #ffffff, 0 0 24px #34d399, 0 0 36px rgba(52, 211, 153, 0.8);
+          transform: scale(1.22);
+        }
+      }
+      .hub-panel,
+      .tray-menu {
+        background-image:
+          radial-gradient(ellipse 90% 60% at 15% 10%, rgba(16, 185, 129, 0.11), transparent 65%),
+          radial-gradient(ellipse 85% 55% at 88% 85%, rgba(168, 85, 247, 0.1), transparent 65%),
+          linear-gradient(155deg, rgba(5, 10, 8, 0.92), rgba(7, 13, 11, 0.94));
+        animation: ubHudGodPulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      }
     

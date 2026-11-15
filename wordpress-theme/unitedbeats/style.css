@@ -1,13 +1,2155 @@
 /*
 Theme Name: UnitedBeats Legacy
-Description: Preserves the legacy unitedbeats.org homepage exactly; WordPress posts below the fold and project pages.
-Version: 1.0.0
+Description: Preserves the legacy unitedbeats.org homepage starburst hero; applies lumbros.me Dark Rainbow Oil Sheen, 12-Color Harmonic Spectrum, and 3.5s Pulsing God Light HUD below the fold and across inner WordPress pages.
+Version: 1.7.0
 */
-body.ub-inner{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url("bg-building.jpg") center/cover no-repeat fixed #000;color:#eee;font-family:Inter,system-ui,sans-serif;margin:0}
-.ub-wrap{max-width:900px;margin:0 auto;padding:6rem 1.25rem 4rem}
-.ub-nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 2rem;padding:0;list-style:none}
-.ub-nav a{color:#ffd700;text-decoration:none;border:1px solid rgba(255,215,0,.35);padding:.45rem .8rem;border-radius:999px;background:rgba(0,0,0,.5);font-size:.9rem}
-.ub-nav a:hover{background:rgba(255,215,0,.15)}
-.ub-card{background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.25rem;margin:0 0 1rem}
-.ub-card a{color:#ffd700}
-.ub-meta{opacity:.75;font-size:.85rem}
+
+/* ==========================================================================
+   LUMBROS.ME DARK RAINBOW OIL SHEEN, 12-COLOR SPECTRUM & GOD LIGHT TOKENS
+   Scoped strictly to .ub-below (below starburst) and body.ub-inner (pages/posts)
+   ========================================================================== */
+.ub-below,
+body.ub-inner {
+  --lb-obsidian: #020403;
+  --lb-surface: #040907;
+  --lb-surface-elevated: #07120d;
+  --lb-glass-card: rgba(3, 9, 6, 0.88);
+
+  --lb-phosphor-hot: #00ff66;
+  --lb-phosphor-mint: #00f0aa;
+  --lb-phosphor: #10b981;
+  --lb-pear: #b4e600;
+  --lb-cyan: #00e5ff;
+  --lb-violet: #8800ff;
+  --lb-crimson: #ff0055;
+
+  --lb-border-dim: rgba(0, 255, 102, 0.22);
+  --lb-border: rgba(0, 255, 102, 0.42);
+  --lb-border-hot: #00ff66;
+
+  --lb-text-bright: #ffffff;
+  --lb-text-body: #d4f7e0;
+  --lb-text-muted: #8ce4a7;
+
+  /* 12-Color Harmonic Spectrum (550nm Emerald Green Midpoint) */
+  --spec-1: #ff0033;
+  --spec-2: #ff3d00;
+  --spec-3: #ff7700;
+  --spec-4: #ffaa00;
+  --spec-5: #ffe600;
+  --spec-6: #b4e600;
+  --spec-7: #00ff66;
+  --spec-8: #00f0aa;
+  --spec-9: #00e5ff;
+  --spec-10: #0077ff;
+  --spec-11: #5800ff;
+  --spec-12: #e00099;
+
+  --spec-gradient: linear-gradient(
+    90deg,
+    #ff0033 0%,
+    #ff3d00 9%,
+    #ff7700 18%,
+    #ffaa00 27%,
+    #ffe600 36%,
+    #b4e600 45%,
+    #00ff66 50%,
+    #00f0aa 55%,
+    #00e5ff 64%,
+    #0077ff 73%,
+    #5800ff 82%,
+    #e00099 100%
+  );
+
+  /* Dark Rainbow Oil-Slick Film (Viscous 12-Stop Obsidian Iridescence) */
+  --oil-sheen-film: linear-gradient(
+    118deg,
+    rgba(255, 0, 51, 0.16) 0%,
+    rgba(255, 61, 0, 0.13) 9%,
+    rgba(255, 136, 0, 0.14) 18%,
+    rgba(255, 215, 0, 0.13) 27%,
+    rgba(180, 230, 0, 0.20) 42%,
+    rgba(0, 255, 102, 0.30) 50%,
+    rgba(0, 240, 170, 0.21) 57%,
+    rgba(0, 229, 255, 0.18) 66%,
+    rgba(0, 119, 255, 0.16) 75%,
+    rgba(110, 0, 255, 0.18) 86%,
+    rgba(224, 0, 153, 0.17) 95%,
+    rgba(255, 0, 51, 0.16) 100%
+  );
+
+  --lb-font-sans: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --lb-font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --lb-shadow-hud:
+    0 0 55px rgba(0, 255, 102, 0.18),
+    0 0 110px rgba(0, 229, 255, 0.08),
+    inset 0 0 36px rgba(0, 255, 102, 0.06),
+    0 26px 70px rgba(0, 0, 0, 0.92);
+  --lb-shadow-card:
+    0 6px 24px rgba(0, 0, 0, 0.78),
+    inset 0 0 18px rgba(0, 0, 0, 0.65),
+    0 0 18px rgba(0, 255, 102, 0.10);
+  --lb-shadow-card-hover:
+    0 10px 32px rgba(0, 0, 0, 0.88),
+    inset 0 0 24px rgba(0, 255, 102, 0.16),
+    0 0 28px rgba(0, 255, 102, 0.34),
+    0 0 52px rgba(0, 229, 255, 0.16);
+}
+
+/* ==========================================================================
+   KEYFRAMES: 3.5S PULSING GOD LIGHT & DARK RAINBOW OIL-SHEEN KINETICS
+   ========================================================================== */
+
+/* 1. Exterior Pure White + Emerald God-Light Pulse (3.5s Cadence) */
+@keyframes ubDivineOutlinePulse {
+  0%, 76% {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.14), 0 0 20px rgba(0, 255, 102, 0.14);
+    opacity: 0.72;
+  }
+  80% {
+    border-color: rgba(255, 255, 255, 0.68);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.52), 0 0 32px rgba(0, 255, 102, 0.35);
+    opacity: 0.9;
+  }
+  85% {
+    border-color: #ffffff;
+    box-shadow:
+      0 0 24px #ffffff,
+      0 0 52px rgba(255, 255, 255, 0.95),
+      0 0 90px rgba(0, 255, 102, 0.68),
+      0 0 130px rgba(0, 229, 255, 0.38);
+    opacity: 1;
+  }
+  87% {
+    border-color: #ffffff;
+    box-shadow:
+      0 0 34px #ffffff,
+      0 0 70px #ffffff,
+      0 0 115px rgba(0, 255, 102, 0.85);
+    opacity: 1;
+  }
+  91% {
+    border-color: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.55), 0 0 38px rgba(0, 255, 102, 0.4);
+    opacity: 0.85;
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.14), 0 0 20px rgba(0, 255, 102, 0.14);
+    opacity: 0.72;
+  }
+}
+
+/* 2. Interior Pure White + Emerald God-Light Contour Convergence (3.5s) */
+@keyframes ubDivineInlinePulse {
+  0%, 76% {
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
+    opacity: 0.62;
+  }
+  80% {
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.42), inset 0 0 26px rgba(0, 255, 102, 0.25);
+    opacity: 0.85;
+  }
+  85% {
+    border-color: #ffffff;
+    box-shadow:
+      inset 0 0 22px #ffffff,
+      inset 0 0 46px rgba(255, 255, 255, 0.88),
+      inset 0 0 85px rgba(0, 255, 102, 0.52);
+    opacity: 1;
+  }
+  87% {
+    border-color: #ffffff;
+    box-shadow:
+      inset 0 0 30px #ffffff,
+      inset 0 0 60px #ffffff;
+    opacity: 1;
+  }
+  92% {
+    border-color: rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+    opacity: 0.78;
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
+    opacity: 0.62;
+  }
+}
+
+/* 3. Vertical Divine Hyper-Beam Ray & Celestial Crown Corona (3.5s) */
+@keyframes ubDivineRayPulse {
+  0%, 76% {
+    opacity: 0.18;
+    transform: translateX(-50%) scaleX(1);
+    filter: blur(1.5px);
+  }
+  80% {
+    opacity: 0.55;
+    transform: translateX(-50%) scaleX(1.8);
+    filter: blur(1px);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(3.6);
+    filter: blur(0px);
+    box-shadow: 0 0 32px #ffffff, 0 0 70px #ffffff, 0 0 110px #00ff66;
+  }
+  87% {
+    opacity: 0.96;
+    transform: translateX(-50%) scaleX(2.6);
+    box-shadow: 0 0 26px #ffffff, 0 0 55px #00ff66;
+  }
+  92% {
+    opacity: 0.35;
+    transform: translateX(-50%) scaleX(1.25);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0.18;
+    transform: translateX(-50%) scaleX(1);
+    filter: blur(1.5px);
+  }
+}
+
+@keyframes ubGodCrownPulse {
+  0%, 76% {
+    opacity: 0.42;
+    transform: translateX(-50%) scale(1);
+  }
+  85%, 87% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.18);
+  }
+  93%, 100% {
+    opacity: 0.42;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* 4. Corner Precision White Laser Glints (3.5s) */
+@keyframes ubDivineGlintFlash {
+  0%, 78% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  85%, 87% {
+    opacity: 1;
+    transform: scale(1.38);
+    filter: drop-shadow(0 0 10px #ffffff) drop-shadow(0 0 22px #00ff66);
+  }
+  93%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+}
+
+/* 5. Dark Rainbow Oil-Slick Viscous Drift & Diagonal Magnifier */
+@keyframes lbOilSheenFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes lbDiagonalMagnifier {
+  0% {
+    transform: rotate(-24deg) translate3d(-8%, -6%, 0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: rotate(-24deg) translate3d(8%, 6%, 0);
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(-24deg) translate3d(-8%, -6%, 0);
+    opacity: 0.65;
+  }
+}
+
+/* 6. Twin Non-Colliding Oscillating Spectrum Laser Bars (lumbros.me Signature) */
+@keyframes lbChipScanLeft {
+  0%   { left: 2%;  background-color: #ff0033; box-shadow: 0 0 10px #ff0033, 0 0 20px rgba(255, 0, 51, 0.85); }
+  22%  { left: 12%; background-color: #ff5500; box-shadow: 0 0 10px #ff5500, 0 0 20px rgba(255, 85, 0, 0.85); }
+  45%  { left: 24%; background-color: #ffaa00; box-shadow: 0 0 10px #ffaa00, 0 0 20px rgba(255, 170, 0, 0.85); }
+  68%  { left: 35%; background-color: #ffe600; box-shadow: 0 0 10px #ffe600, 0 0 20px rgba(255, 230, 0, 0.85); }
+  87%  { left: 43%; background-color: #b4e600; box-shadow: 0 0 14px #b4e600, 0 0 24px rgba(180, 230, 0, 0.95); }
+  100% { left: 47%; background-color: #44ff00; box-shadow: 0 0 14px #44ff00, 0 0 24px rgba(68, 255, 0, 0.95); }
+}
+
+@keyframes lbChipScanRight {
+  0%   { left: 53%; background-color: #00ff66; box-shadow: 0 0 14px #00ff66, 0 0 26px rgba(0, 255, 102, 0.95); }
+  22%  { left: 62%; background-color: #00f0aa; box-shadow: 0 0 12px #00f0aa, 0 0 22px rgba(0, 240, 170, 0.85); }
+  46%  { left: 72%; background-color: #00e5ff; box-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0, 229, 255, 0.85); }
+  70%  { left: 82%; background-color: #0077ff; box-shadow: 0 0 10px #0077ff, 0 0 20px rgba(0, 119, 255, 0.85); }
+  88%  { left: 92%; background-color: #5800ff; box-shadow: 0 0 10px #5800ff, 0 0 20px rgba(88, 0, 255, 0.85); }
+  100% { left: 98%; background-color: #e00099; box-shadow: 0 0 10px #e00099, 0 0 20px rgba(224, 0, 153, 0.85); }
+}
+
+/* 7. 7-Stop Chromatic Glyph Shimmer + Divine White Strike + Rainbow Beam Sweep */
+@keyframes lbSpectrumDrift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+@keyframes lbNegBeamSweep {
+  0%   { left: -90%; }
+  100% { left: 150%; }
+}
+
+@keyframes lbBeaconGodBlink {
+  0%, 76% {
+    background: #00ff66;
+    box-shadow: 0 0 8px #00ff66, 0 0 18px rgba(0, 255, 102, 0.55);
+    transform: scale(1);
+  }
+  85%, 87% {
+    background: #ffffff;
+    box-shadow: 0 0 14px #ffffff, 0 0 28px #ffffff, 0 0 44px #00ff66;
+    transform: scale(1.28);
+  }
+  100% {
+    background: #00ff66;
+    box-shadow: 0 0 8px #00ff66, 0 0 18px rgba(0, 255, 102, 0.55);
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   BELOW-STARBURST SECTION ON FRONT PAGE (.ub-below)
+   ========================================================================== */
+.ub-below {
+  position: relative;
+  z-index: 30;
+  padding: 4.5rem 1.25rem 5.5rem;
+  color: var(--lb-text-body);
+  font-family: var(--lb-font-sans);
+  background-color: var(--lb-obsidian);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.32) 0px,
+      rgba(0, 0, 0, 0.32) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse 68% 36% at 50% 0%, rgba(255, 255, 255, 0.08), rgba(0, 255, 102, 0.16) 42%, transparent 72%),
+    radial-gradient(ellipse 55% 45% at 15% 35%, rgba(255, 0, 85, 0.08), transparent 68%),
+    radial-gradient(ellipse 55% 45% at 85% 65%, rgba(0, 229, 255, 0.09), rgba(136, 0, 255, 0.07) 45%, transparent 70%),
+    linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+  background-size: 100% 3px, 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  box-shadow:
+    0 -30px 70px rgba(2, 4, 3, 0.96),
+    0 -4px 34px rgba(0, 255, 102, 0.22);
+  overflow: hidden;
+}
+
+/* 12-Color Harmonic Spectrum Horizon Seam right below the Starburst */
+.ub-below::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 8;
+  background: var(--spec-gradient);
+  background-size: 200% 100%;
+  animation: lbOilSheenFlow 9s ease-in-out infinite;
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.45),
+    0 0 32px rgba(0, 255, 102, 0.55),
+    0 4px 28px rgba(0, 229, 255, 0.30);
+}
+
+/* ==========================================================================
+   INNER WORDPRESS PAGES & POSTS BACKDROP (body.ub-inner)
+   ========================================================================== */
+body.ub-inner,
+body.ub-inner * {
+  box-sizing: border-box;
+}
+
+body.ub-inner {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--lb-text-body);
+  font-family: var(--lb-font-sans);
+  line-height: 1.68;
+  background-color: var(--lb-obsidian);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.3) 0px,
+      rgba(0, 0, 0, 0.3) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse 72% 40% at 50% 0%, rgba(255, 255, 255, 0.08), rgba(0, 255, 102, 0.16) 42%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 12% 30%, rgba(255, 0, 85, 0.09), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 88% 75%, rgba(0, 229, 255, 0.10), rgba(136, 0, 255, 0.08) 50%, transparent 72%),
+    linear-gradient(180deg, rgba(2, 5, 4, 0.85) 0%, rgba(2, 4, 3, 0.94) 100%),
+    url("bg-building.jpg");
+  background-position: 0 0, center top, left top, right bottom, center center, center center;
+  background-size: 100% 3px, 100% 100%, 100% 100%, 100% 100%, cover, cover;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, fixed, fixed, fixed, fixed, fixed;
+}
+
+body.ub-inner::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 100;
+  background: var(--spec-gradient);
+  background-size: 200% 100%;
+  animation: lbOilSheenFlow 9s ease-in-out infinite;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.45), 0 0 30px rgba(0, 255, 102, 0.55);
+}
+
+/* ==========================================================================
+   PULSING GOD LIGHT CROWN HALO & VERTICAL DIVINE HYPER-BEAM SHAFT (3.5S)
+   ========================================================================== */
+.ub-godlight-crown {
+  position: absolute;
+  top: -110px;
+  left: 50%;
+  width: min(860px, 95vw);
+  height: 280px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    rgba(255, 255, 255, 0.52) 0%,
+    rgba(255, 250, 220, 0.24) 18%,
+    rgba(0, 255, 102, 0.22) 40%,
+    rgba(0, 229, 255, 0.10) 58%,
+    transparent 76%
+  );
+  filter: blur(8px);
+  animation: ubGodCrownPulse 3.5s ease-in-out infinite;
+}
+
+.ub-divine-ray {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.85) 14%,
+    rgba(0, 255, 102, 0.55) 45%,
+    rgba(0, 229, 255, 0.30) 75%,
+    transparent 100%
+  );
+  animation: ubDivineRayPulse 3.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   OPTICAL HUD CONSOLE WITH DARK RAINBOW OIL SHEEN & DIVINE LIGHTNING PULSE
+   ========================================================================== */
+.ub-below-inner,
+.ub-wrap {
+  position: relative;
+  z-index: 4;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2.4rem 2.25rem 2.75rem;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(10, 34, 21, 0.92) 0%, rgba(3, 8, 5, 0.96) 72%, rgba(2, 4, 3, 0.98) 100%);
+  border: 1.5px solid rgba(0, 255, 102, 0.5);
+  box-shadow: var(--lb-shadow-hud);
+  backdrop-filter: blur(16px);
+}
+
+.ub-wrap {
+  margin-top: 2.75rem;
+  margin-bottom: 3.75rem;
+}
+
+/* Dual 3.5s Pure White + Emerald Lightning Pulse Rings */
+.ub-divine-outline {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 6;
+  animation: ubDivineOutlinePulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.ub-divine-inline {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+  z-index: 6;
+  animation: ubDivineInlinePulse 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* 4-Corner Precision White Laser Glints (3.5s) */
+.ub-glint {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 7;
+  animation: ubDivineGlintFlash 3.5s ease-in-out infinite;
+}
+.ub-glint-tl { top: -4px; left: -4px; border-top: 3px solid #ffffff; border-left: 3px solid #ffffff; }
+.ub-glint-tr { top: -4px; right: -4px; border-top: 3px solid #ffffff; border-right: 3px solid #ffffff; }
+.ub-glint-bl { bottom: -4px; left: -4px; border-bottom: 3px solid #ffffff; border-left: 3px solid #ffffff; }
+.ub-glint-br { bottom: -4px; right: -4px; border-bottom: 3px solid #ffffff; border-right: 3px solid #ffffff; }
+
+/* Viscous Dark Rainbow Oil-Sheen Backplane & Diagonal Spectrum Magnifier */
+.ub-oil-backplane {
+  position: absolute;
+  inset: 0;
+  border-radius: 13px;
+  pointer-events: none;
+  z-index: 1;
+  background: var(--oil-sheen-film);
+  background-size: 240% 240%;
+  opacity: 0.58;
+  animation: lbOilSheenFlow 14s ease-in-out infinite;
+}
+
+.ub-oil-magnifier {
+  position: absolute;
+  inset: 0;
+  border-radius: 13px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ub-oil-magnifier::before {
+  content: "";
+  position: absolute;
+  top: -65%;
+  left: -65%;
+  width: 230%;
+  height: 230%;
+  background: linear-gradient(
+    90deg,
+    transparent 30%,
+    rgba(255, 0, 85, 0.14) 37%,
+    rgba(255, 170, 0, 0.16) 43%,
+    rgba(180, 230, 0, 0.24) 47%,
+    rgba(0, 255, 102, 0.36) 50%,
+    rgba(0, 240, 170, 0.24) 53%,
+    rgba(0, 229, 255, 0.18) 57%,
+    rgba(136, 0, 255, 0.14) 62%,
+    transparent 69%
+  );
+  mix-blend-mode: screen;
+  animation: lbDiagonalMagnifier 11s ease-in-out infinite;
+}
+
+/* Master 12-Color Spectrum Oscillator Track at Top of Console */
+.ub-spectrum-oscillator {
+  position: relative;
+  z-index: 4;
+  height: 12px;
+  margin: 0 0 1.85rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 51, 0.52) 0%,
+    rgba(255, 61, 0, 0.52) 9%,
+    rgba(255, 119, 0, 0.52) 18%,
+    rgba(255, 170, 0, 0.52) 27%,
+    rgba(255, 230, 0, 0.52) 36%,
+    rgba(180, 230, 0, 0.68) 45%,
+    rgba(0, 255, 102, 0.90) 50%,
+    rgba(0, 240, 170, 0.68) 55%,
+    rgba(0, 229, 255, 0.52) 64%,
+    rgba(0, 119, 255, 0.52) 73%,
+    rgba(88, 0, 255, 0.52) 82%,
+    rgba(224, 0, 153, 0.52) 100%
+  );
+  border: 1px solid rgba(0, 255, 102, 0.42);
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.78),
+    0 0 16px rgba(0, 255, 102, 0.22);
+}
+
+.ub-osc-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #00ff66;
+  z-index: 3;
+}
+
+.ub-osc-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  border-radius: 3px;
+  z-index: 2;
+}
+.ub-osc-left {
+  animation: lbChipScanLeft 5.4s ease-in-out infinite alternate;
+}
+.ub-osc-right {
+  animation: lbChipScanRight 6.8s ease-in-out infinite alternate;
+}
+
+.ub-console-content {
+  position: relative;
+  z-index: 5;
+}
+
+/* ==========================================================================
+   INNER HEADER BRAND CREST (.ub-brand)
+   ========================================================================== */
+.ub-brand-row {
+  margin: 0 0 1.5rem;
+  padding: 0 0 1.15rem;
+  border-bottom: 1px dashed rgba(0, 255, 102, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.ub-brand {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--lb-font-mono);
+  font-size: 0.94rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  background:
+    var(--oil-sheen-film),
+    rgba(3, 12, 7, 0.92);
+  background-size: 240% 240%, 100% 100%;
+  border: 1.5px solid #00ff66;
+  box-shadow:
+    0 0 20px rgba(0, 255, 102, 0.32),
+    inset 0 0 14px rgba(0, 255, 102, 0.15);
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #00ff66;
+  animation: lbOilSheenFlow 10s ease-in-out infinite;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.ub-brand::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff66;
+  animation: lbBeaconGodBlink 3.5s ease-in-out infinite;
+}
+
+.ub-brand:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 28px rgba(255, 255, 255, 0.55),
+    0 0 46px rgba(0, 255, 102, 0.6);
+}
+
+/* ==========================================================================
+   HUD SECTION HEADINGS WITH CHROMATIC OIL-SHEEN & GOD-LIGHT STRIKE (.ub-below h2)
+   ========================================================================== */
+.ub-below h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.4rem;
+  font-family: var(--lb-font-mono);
+  font-size: clamp(1.18rem, 2.4vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #b4e600 18%,
+    #00ff66 36%,
+    #00e5ff 54%,
+    #ff99dd 72%,
+    #ffe066 86%,
+    #ffffff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.55)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.22));
+  animation: lbSpectrumDrift 8.4s linear infinite;
+}
+
+.ub-below h2 + ul + h2,
+.ub-below .ub-nav + h2 {
+  margin-top: 2.75rem;
+}
+
+.ub-below h2::before {
+  content: "";
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00ff66;
+  animation: lbBeaconGodBlink 3.5s ease-in-out infinite;
+}
+
+.ub-below h2::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(0, 255, 102, 0.65) 28%,
+    rgba(0, 229, 255, 0.45) 58%,
+    rgba(224, 0, 153, 0.28) 82%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================================
+   12-COLOR SPECTRUM PROJECT MATRIX WITH TWIN OSCILLATING LASER BARS (.ub-nav)
+   ========================================================================== */
+.ub-below .ub-nav,
+body.ub-inner .ub-nav {
+  list-style: none;
+  margin: 0 0 2.1rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.85rem;
+}
+
+body.ub-inner .ub-nav {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.68rem;
+  margin-bottom: 2.3rem;
+}
+
+.ub-nav li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border-radius: 9px;
+  overflow: hidden;
+  --item-spec: var(--spec-7);
+}
+
+.ub-nav li:nth-child(12n + 1)  { --item-spec: var(--spec-1);  --scan-delay: -0.4s; }
+.ub-nav li:nth-child(12n + 2)  { --item-spec: var(--spec-2);  --scan-delay: -1.3s; }
+.ub-nav li:nth-child(12n + 3)  { --item-spec: var(--spec-3);  --scan-delay: -2.2s; }
+.ub-nav li:nth-child(12n + 4)  { --item-spec: var(--spec-4);  --scan-delay: -3.1s; }
+.ub-nav li:nth-child(12n + 5)  { --item-spec: var(--spec-5);  --scan-delay: -4.0s; }
+.ub-nav li:nth-child(12n + 6)  { --item-spec: var(--spec-6);  --scan-delay: -0.9s; }
+.ub-nav li:nth-child(12n + 7)  { --item-spec: var(--spec-7);  --scan-delay: -1.8s; }
+.ub-nav li:nth-child(12n + 8)  { --item-spec: var(--spec-8);  --scan-delay: -2.7s; }
+.ub-nav li:nth-child(12n + 9)  { --item-spec: var(--spec-9);  --scan-delay: -3.6s; }
+.ub-nav li:nth-child(12n + 10) { --item-spec: var(--spec-10); --scan-delay: -4.5s; }
+.ub-nav li:nth-child(12n + 11) { --item-spec: var(--spec-11); --scan-delay: -1.5s; }
+.ub-nav li:nth-child(12n + 12) { --item-spec: var(--spec-12); --scan-delay: -2.9s; }
+
+/* Twin Floating Oscillating Vertical Spectrum Bars (Never Colliding across 50%) */
+.ub-nav li::before,
+.ub-nav li::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 2.5px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.72;
+  transition: opacity 0.25s ease;
+}
+
+.ub-nav li::before {
+  animation: lbChipScanLeft 5.8s ease-in-out var(--scan-delay, 0s) infinite alternate;
+}
+
+.ub-nav li::after {
+  animation: lbChipScanRight 7.4s ease-in-out var(--scan-delay, 0s) infinite alternate;
+}
+
+.ub-nav li:hover::before,
+.ub-nav li:hover::after {
+  opacity: 1;
+}
+
+.ub-nav a {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+  height: 100%;
+  min-height: 50px;
+  padding: 0.82rem 1rem;
+  border-radius: 9px;
+  text-decoration: none;
+  font-family: var(--lb-font-mono);
+  font-size: 0.81rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: #f0fdf4;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.96);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 51, 0.14) 0%,
+      rgba(255, 61, 0, 0.12) 9%,
+      rgba(255, 119, 0, 0.12) 18%,
+      rgba(255, 170, 0, 0.12) 27%,
+      rgba(255, 230, 0, 0.12) 36%,
+      rgba(180, 230, 0, 0.18) 45%,
+      rgba(0, 255, 102, 0.25) 50%,
+      rgba(0, 240, 170, 0.18) 55%,
+      rgba(0, 229, 255, 0.14) 64%,
+      rgba(0, 119, 255, 0.14) 73%,
+      rgba(88, 0, 255, 0.14) 82%,
+      rgba(224, 0, 153, 0.14) 100%
+    ),
+    rgba(2, 8, 5, 0.90);
+  border: 1.5px solid rgba(0, 255, 102, 0.32);
+  border-left: 3.5px solid var(--item-spec);
+  box-shadow: var(--lb-shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.ub-nav a::before {
+  content: "";
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--item-spec);
+  box-shadow: 0 0 8px var(--item-spec), 0 0 14px var(--item-spec);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+/* Specular Dark Rainbow Oil-Sheen Glint on Hover */
+.ub-nav a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -120%;
+  width: 75%;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.28) 48%,
+    rgba(0, 255, 102, 0.25) 58%,
+    transparent 80%
+  );
+  transition: left 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ub-nav a:hover::after {
+  left: 140%;
+}
+
+.ub-nav a:hover,
+.ub-nav .current-menu-item > a,
+.ub-nav .current_page_item > a {
+  color: #ffffff;
+  border-color: #00ff66;
+  border-left-color: var(--item-spec);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 51, 0.20) 0%,
+      rgba(255, 170, 0, 0.18) 25%,
+      rgba(180, 230, 0, 0.24) 45%,
+      rgba(0, 255, 102, 0.34) 50%,
+      rgba(0, 229, 255, 0.24) 70%,
+      rgba(224, 0, 153, 0.22) 100%
+    ),
+    rgba(3, 12, 7, 0.94);
+  box-shadow: var(--lb-shadow-card-hover);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(0, 255, 102, 0.65);
+  transform: translateY(-2px);
+}
+
+.ub-nav a:hover::before,
+.ub-nav .current-menu-item > a::before {
+  transform: scale(1.3);
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px var(--item-spec), 0 0 28px #00ff66;
+}
+
+/* ==========================================================================
+   TRANSMISSION DIARY & DOSSIER CARDS WITH OIL SHEEN & RAINBOW BEAM (.ub-post, .ub-card)
+   ========================================================================== */
+.ub-post,
+.ub-card {
+  position: relative;
+  margin: 0 0 1.35rem;
+  padding: 1.75rem 1.85rem;
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0px,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(
+      125deg,
+      rgba(255, 0, 85, 0.07) 0%,
+      rgba(255, 170, 0, 0.05) 22%,
+      rgba(180, 230, 0, 0.08) 42%,
+      rgba(0, 255, 102, 0.13) 52%,
+      rgba(0, 229, 255, 0.09) 72%,
+      rgba(136, 0, 255, 0.09) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 14, 9, 0.93) 0%, rgba(2, 7, 5, 0.96) 100%);
+  border: 1.5px solid rgba(0, 255, 102, 0.36);
+  border-left: 4px solid #00ff66;
+  box-shadow: var(--lb-shadow-card);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+
+.ub-post:last-child,
+.ub-card:last-child {
+  margin-bottom: 0.25rem;
+}
+
+/* Top 12-Color Spectrum Filament */
+.ub-post::before,
+.ub-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 2;
+  background: var(--spec-gradient);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.5);
+}
+
+/* Sweeping Dark Rainbow Oil-Sheen Beam across Card */
+.ub-post::after,
+.ub-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -90%;
+  width: 55%;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 102, 0.07) 30%,
+    rgba(0, 229, 255, 0.10) 50%,
+    rgba(224, 0, 153, 0.07) 70%,
+    transparent 100%
+  );
+  animation: lbNegBeamSweep 7.5s linear infinite;
+}
+
+.ub-post > *,
+.ub-card > * {
+  position: relative;
+  z-index: 3;
+}
+
+.ub-post:hover {
+  border-color: #00ff66;
+  box-shadow: var(--lb-shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Post Titles on Homepage (.ub-post h3) */
+.ub-post h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--lb-font-sans);
+  font-size: clamp(1.22rem, 2.3vw, 1.48rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.ub-post h3 a,
+.ub-card h2 a {
+  color: var(--lb-text-bright);
+  text-decoration: none;
+  text-shadow: 0 0 16px rgba(0, 255, 102, 0.25);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.ub-post h3 a:hover,
+.ub-card h2 a:hover {
+  color: #00ff66;
+  text-shadow: 0 0 10px #ffffff, 0 0 22px #00ff66;
+}
+
+/* Inner Page / Single Post Primary Title (.ub-card h1) */
+.ub-card h1 {
+  margin: 0 0 0.95rem;
+  padding-bottom: 0.85rem;
+  font-family: var(--lb-font-sans);
+  font-size: clamp(1.7rem, 3.8vw, 2.45rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #ffffff;
+  border-bottom: 1px dashed rgba(0, 255, 102, 0.34);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 28px rgba(0, 255, 102, 0.35);
+}
+
+/* Terminal Timestamp Pill (.ub-post date div & .ub-meta) */
+.ub-post > div:first-of-type,
+.ub-meta {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.24rem 0.72rem;
+  border-radius: 999px;
+  font-family: var(--lb-font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.13);
+  border: 1px solid rgba(0, 255, 102, 0.48);
+  box-shadow: 0 0 14px rgba(0, 255, 102, 0.18);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY & CONTENT ELEMENTS INSIDE .ub-post AND .ub-card
+   ========================================================================== */
+.ub-post p,
+.ub-card p {
+  margin: 0 0 1.08rem;
+  font-family: var(--lb-font-sans);
+  font-size: 1.03rem;
+  line-height: 1.75;
+  color: var(--lb-text-body);
+}
+
+.ub-post p:last-child,
+.ub-card p:last-child {
+  margin-bottom: 0;
+}
+
+.ub-post p a,
+.ub-post li a,
+.ub-post blockquote a,
+.ub-card p a,
+.ub-card li a,
+.ub-card td a,
+.ub-card blockquote a {
+  color: #00ff66;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.45);
+  transition: color 0.2s ease, border-color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.ub-post p a:hover,
+.ub-post li a:hover,
+.ub-post blockquote a:hover,
+.ub-card p a:hover,
+.ub-card li a:hover,
+.ub-card td a:hover,
+.ub-card blockquote a:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #00ff66;
+}
+
+.ub-card h2 {
+  margin: 1.8rem 0 0.75rem;
+  font-family: var(--lb-font-mono);
+  font-size: 1.16rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00ff66;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.35), 0 0 18px rgba(0, 255, 102, 0.45);
+}
+
+.ub-card > h2:first-child {
+  margin-top: 0;
+}
+
+.ub-card h3,
+.ub-card h4 {
+  margin: 1.35rem 0 0.55rem;
+  font-family: var(--lb-font-sans);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ub-card strong,
+.ub-post strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.ub-card ul,
+.ub-card ol,
+.ub-post ul,
+.ub-post ol {
+  margin: 0 0 1.15rem 1.35rem;
+  padding: 0;
+  color: var(--lb-text-body);
+}
+
+.ub-card li,
+.ub-post li {
+  margin-bottom: 0.45rem;
+  line-height: 1.68;
+}
+
+.ub-card li::marker,
+.ub-post li::marker {
+  color: #00ff66;
+}
+
+.ub-card blockquote,
+.ub-post blockquote {
+  margin: 1.25rem 0;
+  padding: 0.95rem 1.3rem;
+  background: rgba(0, 229, 255, 0.08);
+  border-left: 3px solid var(--lb-cyan);
+  border-radius: 0 8px 8px 0;
+  color: #ecfeff;
+}
+
+.ub-card code,
+.ub-post code {
+  font-family: var(--lb-font-mono);
+  font-size: 0.86em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  color: #00e5ff;
+  background: rgba(0, 20, 12, 0.78);
+  border: 1px solid rgba(0, 255, 102, 0.32);
+}
+
+.ub-card pre,
+.ub-post pre {
+  margin: 1.2rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  border-radius: 8px;
+  font-family: var(--lb-font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #00ff66;
+  background: rgba(2, 6, 4, 0.95);
+  border: 1px solid rgba(0, 255, 102, 0.36);
+}
+
+.ub-card pre code,
+.ub-post pre code {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.ub-card hr,
+.ub-post hr {
+  border: none;
+  height: 2px;
+  margin: 1.8rem 0;
+  background: var(--spec-gradient);
+  opacity: 0.55;
+}
+
+.ub-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.92rem;
+}
+
+.ub-card th,
+.ub-card td {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  border: 1px solid rgba(0, 255, 102, 0.25);
+}
+
+.ub-card th {
+  font-family: var(--lb-font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #00e5ff;
+  background: rgba(0, 30, 15, 0.82);
+}
+
+/* ==========================================================================
+   RESPONSIVE MOBILE & REDUCED-MOTION REFINEMENTS
+   ========================================================================== */
+@media (max-width: 720px) {
+  .ub-below {
+    padding: 2.75rem 0.85rem 3.75rem;
+  }
+
+  .ub-below-inner,
+  .ub-wrap {
+    padding: 1.65rem 1.15rem 1.9rem;
+    border-radius: 12px;
+  }
+
+  .ub-wrap {
+    margin: 1.25rem 0.75rem 2.25rem;
+  }
+
+  .ub-below .ub-nav,
+  body.ub-inner .ub-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .ub-post,
+  .ub-card {
+    padding: 1.25rem 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ub-divine-outline,
+  .ub-divine-inline,
+  .ub-divine-ray,
+  .ub-godlight-crown,
+  .ub-glint,
+  .ub-oil-backplane,
+  .ub-oil-magnifier::before,
+  .ub-osc-left,
+  .ub-osc-right,
+  .ub-nav li::before,
+  .ub-nav li::after,
+  .ub-post::after,
+  .ub-card::after,
+  .ub-below h2 {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   /* === UB LUM 10K COMMISSION === */
+   THE $10,000 HAIRCUT & LIFE-CHANGING EXPERIENCE BY LUM — SOVEREIGN HUD & INVOICE
+   ========================================================================== */
+
+.ub-lum-section {
+  position: relative;
+  margin: 0 0 3rem;
+  padding: 2.15rem 2rem 2.3rem;
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse 80% 45% at 50% 0%, rgba(255, 215, 0, 0.13) 0%, rgba(0, 255, 102, 0.08) 48%, transparent 76%),
+    linear-gradient(135deg, rgba(16, 13, 4, 0.92) 0%, rgba(3, 11, 7, 0.96) 52%, rgba(4, 8, 12, 0.97) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.52);
+  box-shadow:
+    0 0 42px rgba(255, 215, 0, 0.14),
+    0 0 65px rgba(0, 255, 102, 0.12),
+    inset 0 0 32px rgba(255, 215, 0, 0.06),
+    0 20px 52px rgba(0, 0, 0, 0.88);
+  overflow: hidden;
+  scroll-margin-top: 84px;
+}
+
+.ub-lum-top-filigree {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #ffd700 0%,
+    #fff6b3 18%,
+    #00ff66 42%,
+    #00e5ff 64%,
+    #e00099 82%,
+    #ffd700 100%
+  );
+  background-size: 220% 100%;
+  animation: lbOilSheenFlow 8s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.65), 0 0 28px rgba(0, 255, 102, 0.45);
+}
+
+.ub-lum-hero {
+  margin-bottom: 1.9rem;
+  padding-bottom: 1.65rem;
+  border-bottom: 1px dashed rgba(255, 215, 0, 0.34);
+}
+
+.ub-lum-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.ub-lum-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.76rem;
+  border-radius: 999px;
+  font-family: var(--lb-font-mono);
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.ub-lum-pill-gold {
+  color: #fff3b0;
+  background: rgba(255, 215, 0, 0.16);
+  border: 1px solid rgba(255, 215, 0, 0.62);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.22);
+}
+
+.ub-lum-pill-emerald {
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.12);
+  border: 1px solid rgba(0, 255, 102, 0.48);
+}
+
+.ub-lum-pill-cyan {
+  color: #80f3ff;
+  background: rgba(0, 229, 255, 0.10);
+  border: 1px solid rgba(0, 229, 255, 0.42);
+}
+
+.ub-lum-title {
+  margin: 0 0 0.85rem !important;
+  font-family: var(--lb-font-sans);
+  font-size: clamp(1.65rem, 3.4vw, 2.38rem) !important;
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 22px rgba(255, 215, 0, 0.28), 0 0 36px rgba(0, 255, 102, 0.22);
+}
+
+.ub-lum-subtitle-line {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--lb-font-mono);
+  font-size: clamp(0.92rem, 1.7vw, 1.14rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffd700;
+  text-shadow: 0 0 14px rgba(255, 215, 0, 0.45);
+}
+
+.ub-lum-lead {
+  margin: 0 0 1.35rem !important;
+  max-width: 900px;
+  font-size: 1.02rem !important;
+  line-height: 1.72 !important;
+  color: #e6f9ed !important;
+}
+
+.ub-lum-lead strong {
+  color: #fff6c2 !important;
+}
+
+.ub-lum-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.ub-lum-pillar {
+  padding: 0.95rem 1.05rem;
+  border-radius: 10px;
+  background: rgba(4, 14, 9, 0.82);
+  border: 1px solid rgba(255, 215, 0, 0.28);
+  border-left: 3px solid #ffd700;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.ub-lum-pillar-kicker {
+  font-family: var(--lb-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00ff66;
+}
+
+.ub-lum-pillar strong {
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.ub-lum-pillar span:last-child {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #bcebd0;
+}
+
+/* Two-Column Questionnaire + Sticky Invoice Grid */
+.ub-lum-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(320px, 0.95fr);
+  gap: 1.55rem;
+  align-items: start;
+}
+
+.ub-lum-form {
+  background: rgba(2, 8, 5, 0.86);
+  border: 1px solid rgba(0, 255, 102, 0.34);
+  border-radius: 12px;
+  padding: 1.45rem 1.45rem 1.55rem;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.65);
+}
+
+.ub-lum-pane-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.24);
+}
+
+.ub-lum-pane-header-questions {
+  margin-top: 1.55rem;
+  border-bottom-color: rgba(255, 215, 0, 0.32);
+}
+
+.ub-lum-pane-code {
+  font-family: var(--lb-font-mono);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  color: #ffd700;
+}
+
+.ub-lum-pane-meta,
+.ub-lum-pane-note {
+  font-family: var(--lb-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.1);
+  border: 1px solid rgba(0, 255, 102, 0.35);
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+}
+
+.ub-lum-ident-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.ub-lum-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+}
+
+.ub-lum-field label,
+.ub-lum-qlabel {
+  font-family: var(--lb-font-sans);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #f4fff8;
+}
+
+.ub-lum-qlabel {
+  display: block;
+  font-size: 1.01rem;
+  line-height: 1.42;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.ub-req {
+  color: #ffd700;
+}
+
+.ub-lum-field input,
+.ub-lum-field select,
+.ub-lum-qcard textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--lb-font-sans);
+  font-size: 0.92rem;
+  line-height: 1.52;
+  color: #ffffff;
+  background: rgba(4, 15, 10, 0.94);
+  border: 1px solid rgba(0, 255, 102, 0.34);
+  border-radius: 8px;
+  padding: 0.68rem 0.82rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ub-lum-field select option {
+  background: #04100a;
+  color: #ffffff;
+}
+
+.ub-lum-field input::placeholder,
+.ub-lum-qcard textarea::placeholder {
+  color: rgba(188, 235, 208, 0.48);
+}
+
+.ub-lum-field input:focus,
+.ub-lum-field select:focus,
+.ub-lum-qcard textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.22), 0 0 18px rgba(0, 255, 102, 0.22);
+}
+
+.ub-lum-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ub-lum-qcard {
+  padding: 1.05rem 1.1rem;
+  border-radius: 10px;
+  background:
+    linear-gradient(125deg, rgba(255, 215, 0, 0.05) 0%, rgba(0, 255, 102, 0.06) 55%, rgba(0, 229, 255, 0.05) 100%),
+    rgba(3, 11, 7, 0.92);
+  border: 1px solid rgba(255, 215, 0, 0.26);
+  border-left: 3.5px solid #ffd700;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ub-lum-qcard:focus-within {
+  border-color: #00ff66;
+  border-left-color: #ffd700;
+  box-shadow: 0 0 22px rgba(0, 255, 102, 0.16);
+}
+
+.ub-lum-qtop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.42rem;
+}
+
+.ub-lum-qnum {
+  font-family: var(--lb-font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffd700;
+}
+
+.ub-lum-qtag {
+  font-family: var(--lb-font-mono);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  color: #8ce4a7;
+}
+
+.ub-lum-qhint {
+  margin: 0 0 0.65rem !important;
+  font-size: 0.83rem !important;
+  line-height: 1.52 !important;
+  color: #a9dfc0 !important;
+}
+
+.ub-lum-qcard textarea {
+  resize: vertical;
+  min-height: 82px;
+}
+
+.ub-lum-hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.ub-lum-attestation {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 1.2rem 0 1.15rem;
+  padding: 0.92rem 1rem;
+  border-radius: 9px;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.42);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #eefcf3;
+}
+
+.ub-lum-attestation input[type="checkbox"] {
+  margin-top: 0.22rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #ffd700;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.ub-lum-attestation strong {
+  color: #ffd700 !important;
+}
+
+.ub-lum-submit-btn {
+  width: 100%;
+  padding: 0.98rem 1.25rem;
+  border-radius: 10px;
+  border: 1.5px solid #ffd700;
+  background: linear-gradient(125deg, #ffd700 0%, #ffec8b 32%, #00ff66 78%, #00e5ff 100%);
+  background-size: 180% 180%;
+  color: #031109;
+  font-family: var(--lb-font-mono);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.36), 0 0 36px rgba(0, 255, 102, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.ub-lum-submit-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 0 32px rgba(255, 215, 0, 0.62), 0 0 48px rgba(0, 255, 102, 0.45);
+}
+
+.ub-lum-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.ub-lum-feedback {
+  margin-top: 0.75rem;
+  font-family: var(--lb-font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  min-height: 1.2rem;
+}
+
+.ub-lum-feedback.is-error {
+  color: #ff6b8b;
+}
+
+.ub-lum-feedback.is-ok {
+  color: #00ff66;
+}
+
+/* RIGHT COLUMN: $10,000.00 USD SOVEREIGN INVOICE CARD */
+.ub-lum-invoice-wrap {
+  position: sticky;
+  top: 76px;
+}
+
+.ub-lum-invoice {
+  position: relative;
+  border-radius: 12px;
+  padding: 1.45rem 1.35rem 1.45rem;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 215, 0, 0.14), transparent 55%),
+    linear-gradient(180deg, rgba(8, 14, 10, 0.97) 0%, rgba(2, 6, 4, 0.99) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.62);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.88),
+    0 0 30px rgba(255, 215, 0, 0.16),
+    inset 0 0 22px rgba(255, 215, 0, 0.06);
+  overflow: hidden;
+}
+
+.ub-lum-invoice.is-issued {
+  border-color: #00ff66;
+  box-shadow:
+    0 14px 44px rgba(0, 0, 0, 0.9),
+    0 0 38px rgba(0, 255, 102, 0.36),
+    0 0 60px rgba(255, 215, 0, 0.22);
+}
+
+.ub-lum-inv-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, #ffffff, #00ff66, #ffd700);
+}
+
+.ub-lum-inv-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 0.95rem;
+  margin-bottom: 0.95rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.28);
+}
+
+.ub-lum-inv-issuer {
+  font-family: var(--lb-font-mono);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffd700;
+}
+
+.ub-lum-inv-docname {
+  font-family: var(--lb-font-mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin-top: 0.2rem;
+}
+
+.ub-lum-inv-status-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.28rem;
+  text-align: right;
+}
+
+.ub-lum-inv-badge {
+  display: inline-block;
+  padding: 0.2rem 0.58rem;
+  border-radius: 999px;
+  font-family: var(--lb-font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.14);
+  border: 1px solid rgba(255, 215, 0, 0.55);
+}
+
+.ub-lum-invoice.is-issued .ub-lum-inv-badge {
+  color: #021208;
+  background: #00ff66;
+  border-color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.7);
+}
+
+.ub-lum-inv-ref {
+  font-family: var(--lb-font-mono);
+  font-size: 0.69rem;
+  color: #9be7b8;
+}
+
+.ub-lum-inv-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.68rem;
+  margin-bottom: 0.85rem;
+}
+
+.ub-lum-inv-meta-box {
+  padding: 0.7rem 0.82rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.8rem;
+  color: #bfead0;
+}
+
+.ub-lum-inv-meta-box strong {
+  color: #ffffff;
+  font-size: 0.88rem;
+}
+
+.ub-lum-inv-k {
+  display: block;
+  font-family: var(--lb-font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffd700;
+}
+
+.ub-lum-inv-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 0.62rem 0.75rem;
+  margin-bottom: 0.85rem;
+  border-radius: 8px;
+  background: rgba(0, 255, 102, 0.07);
+  border: 1px solid rgba(0, 255, 102, 0.24);
+  font-size: 0.76rem;
+}
+
+.ub-lum-inv-bar strong {
+  font-family: var(--lb-font-mono);
+  font-size: 0.74rem;
+  color: #ffffff;
+}
+
+.ub-lum-inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 0.85rem !important;
+  font-size: 0.83rem;
+}
+
+.ub-lum-inv-table th {
+  font-family: var(--lb-font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9be7b8;
+  padding: 0.45rem 0.4rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.35);
+  text-align: left;
+  background: transparent;
+}
+
+.ub-lum-inv-table th:last-child,
+.ub-lum-inv-table td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ub-lum-inv-table td {
+  padding: 0.7rem 0.4rem;
+  border: none;
+  border-bottom: 1px dashed rgba(0, 255, 102, 0.2);
+  vertical-align: top;
+}
+
+.ub-lum-inv-table td strong {
+  display: block;
+  color: #ffffff;
+  font-size: 0.85rem;
+  margin-bottom: 0.18rem;
+}
+
+.ub-lum-inv-sub {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.42;
+  color: #9fd8b5;
+}
+
+.ub-lum-inv-amt {
+  font-family: var(--lb-font-mono);
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #ffd700;
+}
+
+.ub-lum-inv-inc {
+  color: #00ff66;
+  font-size: 0.76rem;
+}
+
+.ub-lum-inv-rail-box {
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 0.85rem;
+  border-radius: 8px;
+  background: rgba(255, 215, 0, 0.06);
+  border: 1px solid rgba(255, 215, 0, 0.26);
+}
+
+.ub-lum-inv-rail-box strong {
+  font-size: 0.8rem;
+  color: #ffffff;
+}
+
+.ub-lum-inv-total-box {
+  padding: 0.95rem 1rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.16) 0%, rgba(0, 255, 102, 0.12) 100%);
+  border: 1.5px solid #ffd700;
+  margin-bottom: 0.9rem;
+}
+
+.ub-lum-inv-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.ub-lum-inv-total-row > span {
+  font-family: var(--lb-font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fff5be;
+}
+
+.ub-lum-inv-grand {
+  font-family: var(--lb-font-mono);
+  font-size: 1.48rem;
+  font-weight: 800;
+  color: #ffd700;
+  text-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
+}
+
+.ub-lum-inv-grand span {
+  font-size: 0.8rem;
+  color: #ffffff;
+}
+
+.ub-lum-inv-fineprint {
+  margin: 0 !important;
+  font-size: 0.73rem !important;
+  line-height: 1.48 !important;
+  color: #d9f7e4 !important;
+}
+
+.ub-lum-print-dossier {
+  display: none;
+}
+
+.ub-lum-inv-issued-panel {
+  margin-bottom: 0.9rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 9px;
+  background: rgba(0, 255, 102, 0.14);
+  border: 1px solid #00ff66;
+}
+
+.ub-lum-issued-title {
+  font-family: var(--lb-font-mono);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: #00ff66;
+  margin-bottom: 0.3rem;
+}
+
+.ub-lum-inv-issued-panel p {
+  margin: 0 !important;
+  font-size: 0.79rem !important;
+  line-height: 1.48 !important;
+  color: #ffffff !important;
+}
+
+.ub-lum-inv-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.ub-lum-btn-secondary,
+.ub-lum-btn-ghost {
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  font-family: var(--lb-font-mono);
+  font-size: 0.73rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ub-lum-btn-secondary {
+  background: rgba(255, 215, 0, 0.16);
+  border: 1px solid rgba(255, 215, 0, 0.65);
+  color: #fff4b8;
+}
+
+.ub-lum-btn-secondary:hover {
+  background: rgba(255, 215, 0, 0.28);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+}
+
+.ub-lum-btn-ghost {
+  flex: 0 0 auto;
+  background: rgba(0, 255, 102, 0.09);
+  border: 1px solid rgba(0, 255, 102, 0.4);
+  color: #00ff66;
+}
+
+.ub-lum-btn-ghost:hover {
+  background: rgba(0, 255, 102, 0.2);
+  color: #ffffff;
+}
+
+@media (max-width: 960px) {
+  .ub-lum-pillars {
+    grid-template-columns: 1fr;
+  }
+  .ub-lum-grid {
+    grid-template-columns: 1fr;
+  }
+  .ub-lum-invoice-wrap {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .ub-lum-section {
+    padding: 1.35rem 1rem 1.5rem;
+  }
+  .ub-lum-form {
+    padding: 1.1rem 0.95rem;
+  }
+  .ub-lum-ident-grid {
+    grid-template-columns: 1fr;
+  }
+  .ub-lum-inv-actions {
+    flex-direction: column;
+  }
+}
+
+/* Crisp Executive Print Stylesheet for Official $10,000.00 USD PDF Invoice */
+@media print {
+  body,
+  body.ub-inner,
+  .ub-below {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  #canvas,
+  #topNav,
+  #hubPanel,
+  .yt-container,
+  #soundBtn,
+  .hero,
+  .click-hint,
+  .stats,
+  .footer,
+  .message-hint,
+  .ub-spacer,
+  .ub-godlight-crown,
+  .ub-divine-ray,
+  .ub-divine-outline,
+  .ub-divine-inline,
+  .ub-glint,
+  .ub-oil-backplane,
+  .ub-oil-magnifier,
+  .ub-spectrum-oscillator,
+  .ub-brand-row,
+  .ub-nav,
+  .ub-post,
+  .ub-below h2,
+  .ub-lum-form,
+  .ub-lum-inv-actions {
+    display: none !important;
+  }
+  .ub-below-inner,
+  .ub-wrap,
+  .ub-card,
+  .ub-lum-section,
+  .ub-lum-invoice {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #222222 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    max-width: 100% !important;
+  }
+  .ub-lum-grid {
+    display: block !important;
+  }
+  .ub-lum-title,
+  .ub-lum-subtitle-line,
+  .ub-lum-lead,
+  .ub-lum-inv-docname,
+  .ub-lum-inv-issuer,
+  .ub-lum-inv-k,
+  .ub-lum-inv-meta-box,
+  .ub-lum-inv-meta-box strong,
+  .ub-lum-inv-bar strong,
+  .ub-lum-inv-table th,
+  .ub-lum-inv-table td,
+  .ub-lum-inv-table td strong,
+  .ub-lum-inv-sub,
+  .ub-lum-inv-amt,
+  .ub-lum-inv-grand,
+  .ub-lum-inv-grand span,
+  .ub-lum-inv-fineprint,
+  .ub-lum-inv-rail-box strong {
+    color: #111111 !important;
+    text-shadow: none !important;
+  }
+  .ub-lum-pillars {
+    display: none !important;
+  }
+  .ub-lum-print-dossier {
+    display: block !important;
+    margin-top: 14px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid #333333 !important;
+    font-size: 11px !important;
+    color: #111111 !important;
+  }
+  .ub-lum-print-qitem {
+    margin-bottom: 8px !important;
+  }
+}
